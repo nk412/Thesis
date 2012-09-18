@@ -8,10 +8,10 @@
 \pagenumbering{arabic}
 %\usepackage[left=1.5in,right=1in,top=1in,bottom=1in]{geometry}
 \end_preamble
-\options fontsize=11pt,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
+\options fontsize=10pt,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
 \use_default_options false
 \begin_modules
-figs-within-sections
+customHeadersFooters
 \end_modules
 \maintain_unincluded_children false
 \language english
@@ -105,6 +105,18 @@ pagenumbering{roman}
 pagestyle{plain}
 \end_layout
 
+\begin_layout Plain Layout
+
+
+\backslash
+cfoot{
+\backslash
+tiny 
+\backslash
+sc Nagarjuna Kumarappan - Machine Learning, Data Mining and High Performance
+ Computing, 2012}
+\end_layout
+
 \end_inset
 
 
@@ -115,8 +127,53 @@ Executive Summary
 \end_layout
 
 \begin_layout Standard
-Executive summary goes here, limited to one page.
- Right here, boy.
+There are two components to this project.
+ The first is the introduction of a neuroscience software toolbox for MATLAB
+\noun on
+ 
+\noun default
+called 
+\noun on
+ReconTool
+\noun default
+ (Reconstruction Toolbox).
+ It uses a flexible machine learning algorithm to learn from an animal's
+ neural activity and position during spatial tasks in a maze, and reconstructs
+ the trajectory of the animal given novel spike trains.
+ The software is primarily developed for neuroscientists as there are no
+ available tools for decoding neural correlates.
+ The reconstruction algorithm uses Bayesian inference, as described by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang1998"
+
+\end_inset
+
+.
+ Several visualization and analysis methods were also developed, for both
+ pre and post-reconstruction data.
+ Considering the relatively high computational and time complexity of decoding
+ algorithms in general, the toolbox aims to provide a fast and simple way
+ for training and reconstruction on any type of dataset.
+ 
+\noun on
+ReconTool 
+\noun default
+can be downloaded online with detailed documentation from http://www.cs.bris.ac.uk
+    
+\end_layout
+
+\begin_layout Standard
+The second component of the project is the analysis of data recorded from
+ rats navigating a spatial task involving decision making, analysis which
+ would not have been possible without 
+\noun on
+ReconTool
+\noun default
+.
+ Several models were trained on the data, to study the accuracy of reconstructio
+n and also the parameters that affect it.
+ The algorithm was found 
 \end_layout
 
 \begin_layout Chapter*
@@ -125,11 +182,28 @@ Acknowledgements
 
 \begin_layout Standard
 I would like to thank a lot of people, but I'll get back to this later.
+ 
+\end_layout
+
+\begin_layout Standard
+Also him.
+\end_layout
+
+\begin_layout Standard
+Also her.
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
 
 \end_inset
 
@@ -153,9 +227,164 @@ status open
 pagenumbering{arabic}
 \end_layout
 
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{scrheadings}
+\end_layout
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Background
+\end_layout
+
+\begin_layout Subsection
+Place cells and place fields
+\end_layout
+
+\begin_layout Subsection
+Reactivation, replay and preplay
+\end_layout
+
+\begin_layout Section
+Aims and Objectives
+\end_layout
+
+\begin_layout Section
+Scope
+\end_layout
+
+\begin_layout Section
+Structure of the report
+\end_layout
+
+\begin_layout Chapter
+Theoretical background
+\end_layout
+
+\begin_layout Section
+Sequential activity of neurons
+\end_layout
+
+\begin_layout Section
+Replay
+\end_layout
+
+\begin_layout Section
+Preplay occurences on novel tracks
+\end_layout
+
+\begin_layout Section
+Preplay occurences at decision points
+\end_layout
+
+\begin_layout Subsection
+T-based Maze tasks
+\end_layout
+
+\begin_layout Subsection
+Forward sweeps at decision points
+\end_layout
+
+\begin_layout Subsection
+Experimental results
+\end_layout
+
+\begin_layout Section
+Decoding neural activity
+\end_layout
+
+\begin_layout Subsection
+Firing rates and spatial occupancy
+\end_layout
+
+\begin_layout Subsection
+Adaptive binning methods
+\end_layout
+
+\begin_layout Subsection
+Firing rate modulation using velocity
+\end_layout
+
+\begin_layout Section
+Reconstruction methods
+\end_layout
+
+\begin_layout Subsection
+Basis functions and pattern matching
+\end_layout
+
+\begin_layout Subsection
+Bayesian methods for reconstruction
+\end_layout
+
+\begin_layout Section
+Reconstructing at fast time scales
+\end_layout
+
+\begin_layout Section
+Toolbox implementation
+\end_layout
+
+\begin_layout Chapter
+Implementation
+\end_layout
+
+\begin_layout Section
+Structure of the toolbox
+\end_layout
+
+\begin_layout Subsection
+User interface
+\end_layout
+
+\begin_layout Subsection
+Data types
+\end_layout
+
+\begin_layout Section
+Main methods
+\end_layout
+
+\begin_layout Subsection
+Training
+\end_layout
+
+\begin_layout Subsection
+Parameter model
+\end_layout
+
+\begin_layout Subsection
+Reconstruction
+\end_layout
+
+\begin_layout Section
+Visualizating the data
+\end_layout
+
+\begin_layout Subsection
+Firing rates
+\end_layout
+
+\begin_layout Subsection
+Neuron selectivity and place fields
+\end_layout
+
+\begin_layout Subsection
+Spatial occupancy
+\end_layout
+
+\begin_layout Section
+Functions for data analysis
+\end_layout
+
+\begin_layout Chapter
+Introduction
 \end_layout
 
 \begin_layout Section
@@ -2105,6 +2334,10 @@ Despite the existence of literature on different methods and its implementations
  By developing a toolkit that can be easily modified for different algorithms
  and methods, we can enable common users to easily and quickly use reconstructio
 n methods to search for patterns and other experiments.
+\end_layout
+
+\begin_layout Chapter
+Appendix
 \end_layout
 
 \begin_layout Standard

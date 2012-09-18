@@ -439,10 +439,6 @@ Theoretical background
 Sequential activity of neurons
 \end_layout
 
-\begin_layout Section
-Replay
-\end_layout
-
 \begin_layout Standard
 Reactivation, or replay, is the repeat of sequential activity of place cells
  that fired while the rat explored a novel track.
@@ -463,38 +459,11 @@ preplay
 \end_layout
 
 \begin_layout Section
-Preplay occurences on novel tracks
+Replay
 \end_layout
 
-\begin_layout Standard
-In the experiment carried out by 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Dragoi2011"
-
-\end_inset
-
-, rats were trained in a linear track, until they were made familiar with
- it.
- During the sleep that followed, sequences were observed that did not correspond
- to previously visited pathways (replay), but some other mental exploration
- not yet mapped.
- In the following runs carried out, a new arm was attached to one of the
- ends.
- When the rat explored the newer areas of the map, the same sequences that
- were observed during sleep were observed again, suggesting that some sequential
- activity in the brain corresponds to future play, rather than all past
- experiences.
- The experiment carried out here shows the nature of preplay and how they
- could actually be a way of exploration by the brain, and preparation to
- learn new memories 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Buhry2011"
-
-\end_inset
-
-.
+\begin_layout Section
+Preplay occurences on novel tracks
 \end_layout
 
 \begin_layout Section
