@@ -115,8 +115,7 @@ cfoot{
 \backslash
 tiny 
 \backslash
-sc Nagarjuna Kumarappan - Machine Learning, Data Mining and High Performance
- Computing, 2012}
+sc DRAFT}
 \end_layout
 
 \end_inset
@@ -139,11 +138,14 @@ called
 ReconTool
 \noun default
  (Reconstruction Toolbox).
- It uses a flexible machine learning algorithm to learn from an animal's
- neural activity and position during spatial tasks in a maze, and reconstructs
- the trajectory of the animal given novel spike trains.
+ It makes use of a flexible machine learning algorithm to learn from an
+ animal's neural activity and position during spatial tasks in a maze, to
+ reconstruct the trajectory of the animal given novel spike trains.
+ Considering the relatively high computational and time complexity of decoding
+ algorithms in general, the toolbox aims to provide a fast and simple way
+ for training and reconstruction on any type of dataset.
  The software is primarily developed for neuroscientists as there are no
- available tools for decoding neural correlates.
+ freely available tools for decoding neural correlates.
  The reconstruction algorithm uses Bayesian inference, as described by 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -152,17 +154,13 @@ key "Zhang1998"
 \end_inset
 
 .
- Several visualization and analysis methods were also developed, for both
- pre and post-reconstruction data.
- Considering the relatively high computational and time complexity of decoding
- algorithms in general, the toolbox aims to provide a fast and simple way
- for training and reconstruction on any type of dataset.
+ Several visualization and analysis methods were also developed, for data
+ both before and after reconstruction.
  
 \noun on
 ReconTool 
 \noun default
-can be downloaded online with detailed documentation from <web address>  
- 
+can be downloaded online with detailed documentation from http://www.cs.bris.ac.uk
 \end_layout
 
 \begin_layout Standard
@@ -194,6 +192,8 @@ I would like to thank a lot of people, but I'll get back to this later.
 \end_layout
 
 \begin_layout Standard
+
+\size small
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
 
@@ -203,6 +203,8 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
+
+\size small
 \begin_inset FloatList figure
 
 \end_inset
@@ -240,9 +242,9 @@ pagestyle{scrheadings}
 \end_layout
 
 \begin_layout Standard
-This section provides a quick background on relevant neuroscienctific topics,
- before describing the aims, objectives and scope of the project, followed
- by the general structure of this report.
+This chapter provides a quick background on relevant topics in neuroscience,
+ before describing the aims and objectives the project, followed by the
+ general structure of this report.
 \end_layout
 
 \begin_layout Section
@@ -254,6 +256,11 @@ The hippocampus of the brain is responsible for several functions including
  memory consolidation, navigation, and location and spatial awareness.
  Certain regions of the hippocampus consist of specialized cells known as
  pyramidal cells, which are believed to play a role in cognitive ability.
+ Some of the pyramidal cells of the hippocampus act as 
+\emph on
+place cells
+\emph default
+.
 \end_layout
 
 \begin_layout Subsection
@@ -261,12 +268,7 @@ Place cells and place fields
 \end_layout
 
 \begin_layout Standard
-Some of the pyramidal cells of the hippocampus act as 
-\emph on
-place cells
-\emph default
-.
- Place cells are neurons that exhibit activity when the animal is in certain
+Place cells are neurons that exhibit activity when the animal is in certain
  specific locations in its environment, and seldom activate when anywhere
  else.
  These regions at which place cells fire are known as 
@@ -285,9 +287,9 @@ key "Markus1995"
 \end_inset
 
 .
- These place cells are not independent of each other, and sometimes fire
- together with other place cells.
- Thus, more information can be gleamed from an ensemble of place cells than
+ These neurons are not independent of each other, and sometimes fire together
+ with other similar cells.
+ Thus, more information can be gleaned from an ensemble of place cells than
  can be from a single cell 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -299,7 +301,7 @@ key "Brown1998,Harris2003"
 \end_layout
 
 \begin_layout Subsection
-Reactivation, replay and preplay
+Reactivation: Replay and Preplay
 \end_layout
 
 \begin_layout Standard
@@ -329,7 +331,10 @@ key "O'Neill2010"
 \end_inset
 
 .
- Recently, another type of offline sequential activity(OSA)
+\end_layout
+
+\begin_layout Standard
+Recently, another type of offline sequential activity (OSA)
 \begin_inset Foot
 status collapsed
 
@@ -368,8 +373,8 @@ key "Johnson2007,Dragoi2011,Gupta2010"
 .
  The sequence of firing of place cells during a novel run has been shown
  to correspond to sequential activity recorded even before it was navigated.
- It has been observed in maze based tasks that require the rodent to make
- a decision at a junction 
+ It has also been observed in maze based tasks that require the rodent to
+ make a decision at a junction 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Johnson2007"
@@ -392,16 +397,16 @@ Aims and Objectives
 
 \begin_layout Standard
 There are two main aims to this project.
- The first objective is to develop a user friendly software toolbox that
- uses a machine learning algorithm to learn from position and neural spiking
- data, to subsequently decode trajectories given novel spike trains.
- The toolbox would allow users to train models and perform reconstructions
+ The first is to develop a user friendly software toolbox that uses a machine
+ learning algorithm to learn from the position and spiking activity of place
+ cells, to subsequently decode trajectories given novel spike trains.
+ The toolbox aims to allow users to train models and perform reconstructions
  on different sets of data, and thus help analyse sequential activity and
- identify occurences of offline sequential activity.
- The second objective is to use the toolbox to study the data recorded from
- rats navigating a spatial maze during a decision making task, to study
- the accuracy of reconstruction and the factors that affect it, and to look
- for interesting sequential activity.
+ identify occurrences of OSA.
+ The second aim is to use the toolbox on data recorded from rats navigating
+ a spatial maze during a decision making task, to study the accuracy of
+ reconstruction and the factors that affect it, and to look for interesting
+ sequential activity.
 \end_layout
 
 \begin_layout Subsection
@@ -409,8 +414,8 @@ Software Objectives
 \end_layout
 
 \begin_layout Itemize
-To create a system for training and reconstruction using a machine learning
- algorithm.
+To create a system for training and reconstructing an animal's trajectory
+ using a machine learning algorithm.
 \end_layout
 
 \begin_layout Itemize
@@ -448,16 +453,13 @@ key "Jones2005"
 \end_layout
 
 \begin_layout Itemize
-To evaluate the reconstruction accuracy, and seek ways to improve it.
+To evaulate the reconstruction accuracy, and to study the parameters that
+ affect it.
 \end_layout
 
 \begin_layout Itemize
-To find out the effect of parameters on the reconstruction accuracy of a
- model.
-\end_layout
-
-\begin_layout Itemize
-To identify regions of preplay, replay and other sequential activity.
+To identify locations where significant deviations occur between the actual
+ and reconstructed position.
 \end_layout
 
 \begin_layout Section
@@ -465,30 +467,45 @@ Structure of the report
 \end_layout
 
 \begin_layout Standard
-The report is divided into six main sections including this introduction.
- Chapter 
+The report is divided into six main sections including this introductory
+ chapter.
+ Chapter 2 (
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand nameref
 reference "chap:Theoretical-background"
 
 \end_inset
 
- provides a look into the work and existing literature on replay and preplay
- activities, and the experimental setups that were used to study them.
- It also looks at different reconstruction methods and the advantages and
- disadvantages of each method.
- In chapter 
+) is a review of the literature and research surrounding sequential activity
+ in hippocampal neurons of rodents, and different decoding methods and technique
+s.
+ In chapter 3 (
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "chap:Implementation"
 
 \end_inset
 
-, the basic structure and implementation of the toolkit is described.
- The core algorithm and modifications are also described .
- Chapter 4 describes at the results of using the toolbox to analyse data
- from the T-maze task.
- Other analyses on the reconstruction model and accuracy are explored.
+), the basic structure and implementation of the toolkit is described, along
+ with the core algorithm and improvements made to it.
+ Chapter 4 (
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "chap:Analysis-using-ReconTool"
+
+\end_inset
+
+) describes the analyses and results of using the toolbox on the data from
+ the T-maze task.
+ A review and critical evaluation of the project is carried out in chapter
+ 5 (
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "chap:Discussion"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Chapter
@@ -503,9 +520,11 @@ name "chap:Theoretical-background"
 \end_layout
 
 \begin_layout Standard
-This chapter looks into the work and existing literature on different kinds
- of sequential activity and the experiments they were observed on.
- This chapter also explores the 
+This chapter is a review on existing literature and research on different
+ kinds of sequential activity found in the hippocampal place cells of rodents.
+ On the topic of decoding spiking activity, different decoding methods and
+ algorithms are explored, providing the theoretical framework for developing
+ a software for reconstruction.
 \end_layout
 
 \begin_layout Section
@@ -513,26 +532,49 @@ Sequential activity of neurons
 \end_layout
 
 \begin_layout Standard
-Reactivation
-\end_layout
+The hippocampus is responsible for spatial and location awareness, among
+ other functions.
+ There exist specialized hippocampal cells that fire only when the animal
+ visits specific regions in the environment.
+ These cells are known as place cells, and the corresponding fields where
+ they exhibit activity are called place fields.
+ These place cells do not fire independently; sometimes they fire in bursts
+ with other place cells.
+ Therefore, it is possible to glean more information from an ensemble of
+ cells rather than just a single place cell
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Brown1998"
 
-\begin_layout Subsection
-Replay
+\end_inset
+
+.
+ The primary aim of this project is to create a software that decodes the
+ location of the animal.
 \end_layout
 
 \begin_layout Standard
-Reactivation, or replay, is the repeat of sequential activity of place cells
- that fired while the rat explored a novel track.
- Place fields in the track cause the place cells to exhibit activity.
- Strangely, during the sleep that followed the experiment, the same sequences
- were observed to occur among the place cells in the hippocampus, suggesting
- that the hippocampus plays a role in learning about new places and spaces.
- Some sequential activation observed during sleep and during awake rest,
- did not correspond to past experiences, but rather future experiences the
- animal had yet to experience.
- These future play of cells suggests that pathways are mentally explored
- even before are actually traveled by.
- This kind of mental exploration is termed as 
+Decoding involves reconstructing the location of the animal from the spiking
+ activity of an ensemble of place cells.
+ There are several methods for decoding spike trians, some of which are
+ explored in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Decoding-neural-activity"
+
+\end_inset
+
+.
+ Reconstructed sequences sometimes represent the actual location of the
+ animal (local), and sometimes represent other locations in the environment
+ (non-local).
+ Local sequential activity can be understood as a result of the animal visiting
+ a specific region or place field, but non-local activity potentially represents
+ more complex biological processes, such as 
+\emph on
+replay
+\emph default
+ and 
 \emph on
 preplay
 \emph default
@@ -540,31 +582,109 @@ preplay
 \end_layout
 
 \begin_layout Subsection
+Replay
+\end_layout
+
+\begin_layout Standard
+Reactivation, or 
+\emph on
+replay
+\emph default
+, is the repeat of sequential activity of place cells that fired during
+ exploration.
+ In the study carried out by Pavlides and Winson (1989)
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Pavlides and Winson 1989, add citation
+\end_layout
+
+\end_inset
+
+ , neural spiking activity of cells that showed activity in specific regions
+ (place fields) were recorded.
+ Data was recorded as the animal navigated through the place field (exposure)
+ and also through restricted regions not containing the place field (non-exposur
+e).
+ It was shown that these place cells seldom fired during the non-exposure
+ condition.
+ However, during the subsequent sleep that followed the experiment, reactivation
+ of the place cells was observed, suggesting that the hippocampus plays
+ a role in memory consolidation during sleep, and in learning about new
+ places and spaces.
+\end_layout
+
+\begin_layout Subsection
 Preplay
+\end_layout
+
+\begin_layout Standard
+Some non-local sequential activation observed during sleep and during awake
+ rest did not correspond to past experiences, but rather future experiences
+ the animal had yet to experience
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Johnson2007,Dragoi2011"
+
+\end_inset
+
+.
+ These future play of cells suggests that pathways are mentally explored
+ even before are actually traveled.
+ This kind of mental exploration is termed as 
+\emph on
+preplay
+\emph default
+.
+ Interestingly, it has been observed during the prior sleep before the animal
+ is exposed to a completely new environment (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Preplay-occurences-on"
+
+\end_inset
+
+), and also during moments of awake rest at choice points in familiar environmen
+ts (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Preplay-occurences-at"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Section
 Preplay occurences on novel tracks
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Preplay-occurences-on"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 In the experiment carried out by 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Dragoi2011"
 
 \end_inset
 
-, rats were trained in a linear track, until they were made familiar with
+, rats were trained on a linear track, until they were made familiar with
  it.
  During the sleep that followed, sequences were observed that did not correspond
- to previously visited pathways (replay), but some other mental exploration
- not yet mapped.
+ to previously visited pathways, but some other mental exploration not yet
+ mapped.
  In the following runs carried out, a new arm was attached to one of the
  ends.
  When the rat explored the newer areas of the map, the same sequences that
  were observed during sleep were observed again, suggesting that some sequential
- activity in the brain corresponds to future play, rather than all past
+ activity in the brain corresponds to future play, rather than just past
  experiences.
  The experiment carried out here shows the nature of preplay and how they
  could actually be a way of exploration by the brain, and preparation to
@@ -580,6 +700,13 @@ key "Buhry2011"
 
 \begin_layout Section
 Preplay occurences at decision points
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Preplay-occurences-at"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -604,8 +731,14 @@ T-based tasks
 \end_layout
 
 \begin_layout Standard
-The first task, the multiple T-task (Figure ), consists of four T-junctions
- that the animal has to navigate.
+The first task, the multiple T-task (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Multiple-T-task"
+
+\end_inset
+
+), consists of four T-junctions that the animal has to navigate.
  This task is identical to the one devised in 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -619,9 +752,7 @@ key "Schmitzer-Torbert2004"
  is critical, as it chooses one of two return rails back to the start point.
  Both the return rails have feeders where the animal is delivered food pellets
  as rewards, but only the feeders on one return rail are activated during
- training and the actual runs, thus making one path the positive path and
- the other one negative.
- 
+ training and the actual runs, thus making one path favorable over the other.
 \end_layout
 
 \begin_layout Standard
@@ -634,6 +765,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename Images/mutiplet.png
+	lyxscale 50
 	scale 40
 
 \end_inset
@@ -646,10 +778,41 @@ status open
 \emph on
 Multiple T-task
 \emph default
- - Figure taken from (Schmitzer-Torbert & Redish, 2004) identical to the
- task in (Johnson & Redish, 2007) - Consists of four T junctions, the last
- of which decides which return rail, either left or right, the animal returns
- to the start in.
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Johnson2007"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Multiple-T-task"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+Figure taken from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Schmitzer-Torbert2004"
+
+\end_inset
+
+, identical to the task in (Johnson & Redish, 2007) - Consists of four T
+ junctions, the last of which decides which return rail, either left or
+ right, the animal returns to the start in.
  There are two reward points on either side, but only a pair is active at
  one testing session.
 \end_layout
@@ -659,26 +822,31 @@ Multiple T-task
 
 \end_layout
 
+\begin_layout Standard
+The second task, is a cued-choice task (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cued-choice-task"
+
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-The second task, is a cued-choice task (Figure ), which consists of a single
- T-junction in which both the branches are return rails that end back to
- the initial position.
+), which consists of a single T-junction in which both the branches are
+ return rails that end back to the initial position.
  Like the previously described task, only one of the return rails is reinforced
  with a reward.
- In this task however, a audible cue is delivered to help guide the rat
- to make the right decision at the junction point.
+ In this task however, a audible cue is delivered to aid the rodent to make
+ the correct turn at the junction point.
  A tone is played at the central arm before the junction in either a high
- or low frequency, corresponding to left and right respectively.
+ or low frequency.
+ A high frequency tone indicates that the left path is the 'correct' path
+ that has active reward sites, while the low frequency indicates the path
+ on the right has active reward sites.
  If the rat makes the right decision based on this cue, then the same cue
  is played again as it begins its run down the return rail.
  If it does not hear the tone the second time, it implies that the decision
  was made incorrectly, and is on the rail that does not provided reward.
- 
+ This provides the opportunity for the animal to correct an incorrect turn
+ at the choice point.
 \end_layout
 
 \begin_layout Standard
@@ -691,6 +859,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename Images/cuedT.png
+	lyxscale 50
 	scale 50
 
 \end_inset
@@ -699,20 +868,17 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+Cued-choice task 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Johnson2007"
 
-\emph on
-Cued-choice task
-\emph default
- - Figure taken from (Johnson & Redish, 2007) - The task consists of one
- junction point, which leads to two return rails back to the start.
- An audible tone is played twice that acts as the cue, once at the central
- arm, before the choice point, and one as reinforcement, at the secondary
- sites, if the rat has chosen the right direction.
- The frequency of the tone determines the direction the rat should take
- (high and low frequency mean left and right turns respectively)
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Cued-choice-task---1"
+name "fig:Cued-choice-task"
 
 \end_inset
 
@@ -722,6 +888,18 @@ name "fig:Cued-choice-task---1"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+The task consists of one junction point, which leads to two return rails
+ back to the start.
+ An audible tone is played twice that acts as the cue, once at the central
+ arm, before the choice point, and one as reinforcement, at the secondary
+ sites, if the rat has chosen the right direction.
+ The frequency of the tone determines the direction the rat should take
+ (high and low frequency mean left and right turns respectively)
 \end_layout
 
 \end_inset
@@ -734,16 +912,15 @@ Forward sweeps at decision points
 \end_layout
 
 \begin_layout Standard
-To find the location encoded by the place cells, a Bayesian reconstruction
- method was used, which is discussed in detail in chapter 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "chap:Decoding-neuronal-activity"
+To find the location encoded by the place cells, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Johnson2007"
 
 \end_inset
 
-.
- The reconstruction algorithms were suitably modified to allow for faster
+ used a Bayesian reconstruction method.
+ The reconstruction algorithm was suitably modified to allow for faster
  timescales, as sequential activity are compressed by a factor of upto 7
  times in the brain 
 \begin_inset CommandInset citation
@@ -754,7 +931,7 @@ key "Euston2007"
 
 .
  By decoding the location encoded by the hippocampal place cells, it is
- possible to obtain the location as perceived by the animal.
+ possible to determine the location as perceived by the animal.
  This allows for observations of both local and non-local representations
  of the rodent.
  The choice point was defined as a small rectangular area just before the
@@ -765,12 +942,11 @@ key "Euston2007"
  At these critical choice points, forward sweeps of neural ensembles were
  observed.
  If the reconstructed location and the actual position of the animal deviated
- by a fixed amount, it was classified as a non-local activation.
+ by a pre-determined amount, it was classified as a non-local activation.
  At the choice points, the place cells tended to fire ahead of the animal,
- rather than behind (backward sweeps indicate past experience and hence,
- replay).
- It is also interesting to note that, there were certain non-local reconstructio
-n that did not fit in with the environment, and were subsequently eliminated
+ rather than behind (backward sweeps indicate past experience, or replay).
+ It should be notes that, there were certain non-local sequence reconstructions
+ that did not fit in with the environment, and were subsequently eliminated
  from the data set and from further analysis.
 \end_layout
 
@@ -785,14 +961,8 @@ In the multiple T-task, the reconstructed position of the rat began to sweep
  When the rats were first introduced to the environment, their performance
  was merely based on chance, but as the number of laps progressed, performance
  significantly improved.
- In the cued-choice task, described in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:T-based-tasks"
-
-\end_inset
-
-, it was observed that the rats chose the right path 
+ In the cued-choice task, it was observed that the rats chose the right
+ path 
 \begin_inset Formula $70\%$
 \end_inset
 
@@ -804,7 +974,7 @@ reference "sub:T-based-tasks"
 \end_layout
 
 \begin_layout Standard
-The most interesting results that were inferred from these experiments are
+The most interesting results that I inferred from these experiments are
 \end_layout
 
 \begin_layout Enumerate
@@ -821,14 +991,20 @@ key "Dragoi2011"
 
 , but it is interesting to observe this behavior at critical decision points,
  such as the T-junction, as this gives an idea of the role of hippocampus
- in navigation and prediction, and how it may be aid in the decision making
+ in navigation and prediction, and how it may aid in the decision making
  process.
 \end_layout
 
 \begin_layout Enumerate
-In the analysis carried out in this paper, the correlation between the direction
-s of the forward sweeps and actual turn decision made by the animal in the
- cued-choice task was studied.
+In the analysis carried out by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Johnson2007"
+
+\end_inset
+
+, the correlation between the directions of the forward sweeps and actual
+ turn decision made by the animal in the cued-choice task was studied.
  Despite there being a link between the direction of forward sweeps and
  the orientation of motion, there were also turns when these two directions
  did not agree with each other.
@@ -837,7 +1013,7 @@ s of the forward sweeps and actual turn decision made by the animal in the
  mentally explores the map.
  Analysis of these predictions, and the decision making process based on
  these mental explorations, are carried out by another part of the brain,
- the prefrontal cortex.
+ namely the prefrontal cortex.
 \end_layout
 
 \begin_layout Enumerate
@@ -848,14 +1024,14 @@ The reconstruction framework implemented works really well to predict the
  of the sweep, and smoothly decreases as it progresses.
  There were also representations that did not fit in with the map of the
  environment.
- While they more likely caused by noise in the data, they were eliminated
- from further analysis.
+ As they more likely caused by noise in the data, they were eliminated from
+ further analysis.
  
 \end_layout
 
 \begin_layout Standard
-For the above reasons mentioned, it would be very interesting to look for
- similar sequential activity in the data recorded from 
+Based on these inferences, it would be very interesting to look for similar
+ sequential activity in the data recorded from 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Jones2005"
@@ -863,32 +1039,175 @@ key "Jones2005"
 \end_inset
 
 .
- The task conducted is very similar to the T-based task mentioned in the
- Johnson and Redish paper.
- It consists of a forced turn and a decision point, at which a correct decision
- would result in food reward being delivered at the end of the branch.
- In this case, the cue for the decision is which of the two starting points
- it begins from.
- Just like in this paper, the rats were shown to slow down as it entered
- the choice point, before it proceeded to make a decision.
- In the case that it goes down the wrong path and finds no reward, it retraces
- its steps back to the junction and through to the other end.
- As this task is very similar to the Johnson and Redish task, it is extremely
- likely that preplay occurrences can be found in the data, which is one
- of the objectives of the project, and confirm the findings of this paper,
- and perhaps find other interesting correlates.
+ While the specific area of study of the experiments differ, the experimental
+ set up is very similar in the fact that the rodent has to navigate a maze
+ with a decision point, and correct decisions are positively reinforced.
+\end_layout
+
+\begin_layout Section
+Jones & Wilson T-maze task
+\end_layout
+
+\begin_layout Standard
+The main aim of this experiment by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Jones2005"
+
+\end_inset
+
+ was to investigate the possibility of theta rhythms acting as a clocking
+ signal to coordinate brain activity during decision making in a spatial
+ task.
+ The experimental setup (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:T-maze-task"
+
+\end_inset
+
+) was designed in order to provide two types of trials, one being a choice
+ trial where the rodent has to make a decision, and the second a forced
+ trial, where the animal is guided by a temporary barrier.
+\end_layout
+
+\begin_layout Standard
+In any choice trial, the rat begins from the left side of the maze, and
+ makes its way to the right.
+ The animal can begin from either R1 or R2.
+ As the animal moves towards the central arm, the entry to the other site
+ on the left side is blocked by means of a movable barrier.
+ This ensures that the animal follows the path into the central column and
+ does not offer any choice of turn.
+ The animal makes its way down the central arm, where it faces a choice
+ point, where it either takes a left turn or a right, corresponding to sites
+ R3 or R4.
+ If the animal takes the same turn as it did at the forced turn, then the
+ animal reaches its intended site.
+ For instance, if the animal begins at R1, it takes a left turn into the
+ central arm, and if it also makes a left turn at the choice point to reach
+ R3, then it is positively reinforced with a reward.
+ Similarly, the rodent is provided a reward when it reaches R4, if it begins
+ from R2 (two right turns).
+\end_layout
+
+\begin_layout Standard
+During the guided trial, the animal doesn't have to make a decision, and
+ is guided to one of the sites on the left.
+ If the animal begins the guided trial from R3, it is led to R1 using the
+ movable barriers, and if it begins the trial at R4, it is led to R2.
+ This trial served the purpose of recording data to compare neural data
+ from the choice trials with, and also to prepare for the next choice trial.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/jones_T.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+T-maze task 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jones2005"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:T-maze-task"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+Figure taken from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jahans-Price2010"
+
+\end_inset
+
+.
+ The rodent begins a run from either site R1 or R2, navigating its way to
+ the other side of the maze.
+ The first turn is a forced turn, guided by a barrier, while the the second
+ is a choice point.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As a result of this experiment, it was shown that there was significant
+ coherence in the theta rhythm range between 4-12hz, between the CA1 region
+ of the hippocampus and the medial prefrontal cortex, during correct choice
+ trials, than that of incorrect or guided trials.
+ This result supports the idea that communication occurs between hippocampus,
+ responsible for spatial navigation and mental exploration, and the prefrontal
+ cortex, the decision center of the brain.
+\end_layout
+
+\begin_layout Standard
+As the results of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Johnson2007"
+
+\end_inset
+
+ indicate, it can be expected to observe patterns of non-local activation
+ of place cells in the data recorded in this task, especially at the choice
+ points.
+ The occurences of replay are also likely to occur during moments of awake
+ rest at the reward points.
 \end_layout
 
 \begin_layout Section
 Decoding neural activity
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Decoding-neural-activity"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 Decoding is of particular importance to understanding how physical variables
- experienced by an animal is encoded in the brain.
+ experienced by an animal are encoded in the brain.
  Different regions of the brain encode information responsible for different
- physical variables, such as the movement of an object observed visually
- and the animals awareness of its location in the environment.
+ physical variables, such as the sight of a moving object, or the animal's
+ awareness of its location in the environment.
  Decoding, also known as reconstruction, is the process of calculating these
  physical variables based on observed neural activity from different regions
  of the brain.
@@ -896,7 +1215,7 @@ Decoding is of particular importance to understanding how physical variables
 \end_layout
 
 \begin_layout Standard
-In this particular project, decoding the location of the animal based on
+In this particular context, decoding the location of the animal based on
  the neural activity in the hippocampus is the primary focus.
  The hippocampus is responsible for encoding locational awareness of the
  animal.
@@ -913,33 +1232,33 @@ key "Diba2007"
 \end_inset
 
 .
- When trying to decode the location of the animal from neurons, place cells
- are used.
 \end_layout
 
 \begin_layout Standard
-There are several methods that are used for reconstruction, the two main
- widely used methods are linear based basis functions and probabilistic
- based Bayesian classification methods.
- These two methods were studied previously 
+There are several methods that are used for reconstruction.
+ The two main widely used methods are linear based basis functions and probabili
+stic based Bayesian classification methods, both of which have been studied
+ and compared previously.
+ Though this section will focus on the work done by 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Zhang1998"
 
 \end_inset
 
-.
- Though this section will focus mostly on the work on reconstruction carried
- out by Zhang et al., it may not be absolutely suitable for the case of this
- project, as the primary objective is to look for existence of non-local
- reconstruction.
+ in the comparision of different reconstruction methods, it should be noted
+ that their work focuses only on local reconstruction.
  Non-local reconstruction is different from sequential activity driven by
  sensory input in a number of ways, most critical being the timescales at
  which it occurs in.
- This section details methods on deconstruction algorithms as shown by Zhang
- et al.
- and more specific for sequential activity, the methods mentioned by Johnson
- and Redish 
+ This section details methods on decoding algorithms as shown by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang1998"
+
+\end_inset
+
+, and also methods for faster timescale non-local sequential activity 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Johnson2007,Johnson2008"
@@ -974,22 +1293,20 @@ For place cell reconstruction, the position of the animal is discretized
 \begin_inset Formula $y$
 \end_inset
 
-, but for reconstruction purposes they are represented by a position vector
- 
+, but for simplicity and reconstruction purposes, they are represented throughou
+t this report by a position vector 
 \begin_inset Formula $\mathbf{x}=(x,y)$
 \end_inset
 
 .
- It is more easier to to have a single variable for reconstruction, instead
- of two or more variables, as the system tends to get more complex and may
- not yield particularly accurate results.
- 
+ While the reconstruction algorithms use a two coordinate system for representin
+g location, using a single vector is simpler to represent.
 \end_layout
 
 \begin_layout Standard
-In the study by
+In the study by 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Zhang1998"
 
 \end_inset
@@ -1264,7 +1581,7 @@ where
 \end_inset
 
  is the scaling factor that is dependent on the data (for the data set used
- in the paper, it was chosen to be 
+ in their paper, it was chosen to be 
 \begin_inset Formula $1\times10^{6}$
 \end_inset
 
@@ -1296,8 +1613,8 @@ Firing rate modulation using velocity
 \begin_layout Standard
 While the firing rate and the spatial occupancy vectors alone are enough
  for reconstruction purposes, the firing rate can be further be modulated
- with other parameters beyond just potion, such as the velocity of the animal
- and the direction of motion.
+ with other parameters beyond just position, such as the velocity of the
+ animal and the direction of motion.
  In a freely moving rat, the velocity of direction of the animal moving
  does not have any effect on the firing rate of place cells in the hippocampus,
  but when the rat is placed in an environment with physical constraints
@@ -1414,16 +1731,17 @@ Basis functions and pattern matching
 \end_layout
 
 \begin_layout Standard
-One of the methods for reconstruction examined by 
+One of the methods for reconstruction is using a linear combination of fixed
+ templates or basis functions.
+ The following section describes the implementation and performance of basis
+ functions as described by 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Zhang1998"
 
 \end_inset
 
- is using a linear combination of fixed templates or basis functions.
- The following sections describes the implementation and performance of
- basis functions as described in the mentioned paper.
+.
  The goal of using basis functions is to maximize probability of matching
  the neuron activity.
  
@@ -1455,7 +1773,8 @@ key "Zhang1998"
 \end_layout
 
 \begin_layout Standard
-is calculated, which is distributed all over the 2d space addressed by 
+is calculated, which is distributed all over the 2-dimensional space addressed
+ by 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -1729,8 +2048,9 @@ key "Brown1998,Zhang1998,Johnson2008,Johnson2007"
 \end_inset
 
 .
- By trying to model the actual dependence of neurons on each other, it may
- instead harm the performance of the system.
+ Trying to model the actual dependence of firing rates of neurons on each
+ other, and the tendency to fire in bursts, will most likely harm the reconstruc
+tion system than improve it.
 \end_layout
 
 \begin_layout Section
@@ -1884,17 +2204,17 @@ p(x_{t+n}|x_{t-1})=p(x_{t}|x_{t-1})^{n}
 
 \begin_layout Standard
 This implementation of Bayesian decoding can be used to observe preplay
- in detail as shown in 
+ in detail as shown by 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Johnson2007"
 
 \end_inset
 
 .
- Due to the similarity to the Jones & Wilson task
+ Due to the similarity to the T-task experiment by 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Jones2005"
 
 \end_inset
@@ -1904,15 +2224,14 @@ key "Jones2005"
 \end_layout
 
 \begin_layout Section
-Toolbox implementation
+Minimal implementation
 \end_layout
 
 \begin_layout Standard
-There is no freely available simple tool that can allow neuroscience to
- study sequential activity from recorded neural data easily, and hence the
- project objective of designing and implementing a MATLAB toolbox.
- For such a Bayesian based reconstruction bare-bones implementation, there
- are only a few core methods that would be needed.
+There is no freely available simple tool that can allow neuroscientists
+ to study sequential activity from recorded neural data easily.
+ For a very minimal Bayesian based decoding implementation, there are only
+ a few core methods that would be needed.
  Gathering from the above cited equations 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -1921,33 +2240,43 @@ key "Zhang1998,Johnson2007,Johnson2008"
 \end_inset
 
 , a basic implementation would require the calculation of firing rates and
- spatial occupancy (Equation 3.1 and 3.2).
+ spatial occupancy (Equation 2.1 and 2.2).
  These two distributions are used to calculate dynamically the reconstructed
- position based on past spiking history and position (Equations 3.15, 3.16)
- and extend the decoded estimation up to several time steps (Equation 3.17).
+ position based on past spiking history and position (Equations 2.15, 2.16)
+ and extend the decoded estimation up to several time steps (Equation 2.17).
  To calculate the final estimated position, data from the time window around
- it is used (Equation 3.13).
- The peak of this distribution is then estimated (Equation 3.14).
+ it is used (Equation 2.13).
+ The peak of this distribution is then estimated (Equation 2.14).
  These are the core functions that are required for a basic reconstruction
  system.
- However, other details like noise removal and data per-processing must
- be carried out to improve the performance of the system.
+ However, details such as noise removal, data pre-processing and must be
+ carried out to improve the performance of the system.
+ One of the main disadvantages of Bayesian decoding is the relatively high
+ computation and time complexity.
+ To develop of tool of any realistic use, it would be crucial to optimize
+ training and reconstruction of datasets to run in a relatively short time.
 \end_layout
 
 \begin_layout Section
-Evaluation
+Performance evaluation of reconstruction
 \end_layout
 
 \begin_layout Standard
 The principal component of this project is the reconstruction algorithm
  implementation.
  The reconstruction aims to decode the physical location of the animal based
- on neural data alone recorded.
+ on neural data alone recorded, at the very least for every single timestep.
  The most straightforward way to check the accuracy of the implementation
  would be to compare the reconstructed location with the actual location
- of the animal.
- In the methods discussed in Chapter , location was encoded as a vector
- of both the 
+ of the animal for each timestep.
+ In the methods discussed in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Decoding-neural-activity"
+
+\end_inset
+
+, location was encoded as a vector of both the 
 \begin_inset Formula $x$
 \end_inset
 
@@ -1956,21 +2285,20 @@ The principal component of this project is the reconstruction algorithm
 \end_inset
 
  co-ordinates.
- To check the accuracy of the reconstruction, the co-ordinates are compared
- with the reconstructed co-ordinates individually.
+ To check the accuracy, these co-ordinates can be used to calculate the
+ euclidian distance between the two points, as a measure of error in reconstruct
+ion.
 \end_layout
 
 \begin_layout Standard
-The primary detail that can be evaluated is how well the reconstruction
- algorithm reproduces the location of the animal.
- A good implementation will be able to predict the location of the animal
+A good implementation will be able to predict the location of the animal
  with a high degree of accuracy.
- This depends on several factors like noise and the accuracy of the algorithms
- implemented.
+ This depends on several factors like noise in the data and the accuracy
+ of the algorithms implemented.
  Neural data tends to have a lot of noisy data and erratic jumps, and may
  hinder performance of the reconstruction.
- It must also be noted that local reconstruction is different from non-local
- reconstruction.
+ It must also be noted that local reconstruction is essentially different
+ from non-local reconstruction.
  The implementation must be able to differentiate between local and non-local
  representation, and ignore any physical constraints the system uses to
  restrain local representation of the animal.
@@ -1987,7 +2315,7 @@ status open
 \begin_inset Graphics
 	filename Images/evaluation.png
 	lyxscale 50
-	scale 75
+	scale 65
 
 \end_inset
 
@@ -1995,17 +2323,25 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+Performance evaluation of reconstruction algorithms
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Performance-evaluation"
 
-\emph on
-Performance evaluation of different reconstruction algorithms 
-\emph default
-- from (Zhang et al., 1998) - From top to bottom: True position, Bayesian
- methods (probabilistic), Basis methods and the population vector method.
+\end_inset
+
+
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+Image taken from (Zhang et al., 1998) - From top to bottom: True position,
+ Bayesian methods (probabilistic), Basis methods and the population vector
+ method.
 \end_layout
 
 \end_inset
@@ -2014,20 +2350,27 @@ Performance evaluation of different reconstruction algorithms
 \end_layout
 
 \begin_layout Standard
-As can be seen in figure, the performance of the reconstruction methods
- can be evaluated by tracing the plots of the co-ordinates.
+As can be seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Performance-evaluation"
+
+\end_inset
+
+, the performance of the reconstruction methods can be evaluated by tracing
+ the plots of the co-ordinates.
  It can be seen here that the Bayesian methods (labeled as probabilistic)
  with several post processing steps, are the most accurate in reconstruction,
  while the population vector method is a very poor implementation.
- In the course of the project, other things like the usability of the toolbox
- and the correlations that can be drawn from the data from the 
+ The extensive data from the 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "Jones2005"
 
 \end_inset
 
- task will be looked into for evaluation.
+ T-maze task provides the basis for the evaluation of reconstruction accuracy
+ of the implemented software toolkit.
 \end_layout
 
 \begin_layout Chapter
