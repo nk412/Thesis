@@ -6,6 +6,7 @@
 \begin_preamble
 \pagestyle{scrheadings}
 \pagenumbering{arabic}
+\usepackage{pdfpages}
 \usepackage[left=1.3in,right=1.8in,top=1in,bottom=1in]{geometry}
 \renewcommand\[{\begin{equation}}
 \renewcommand\]{\end{equation}}
@@ -123,6 +124,24 @@ sc DRAFT}
 
 \end_layout
 
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+includepdf[pages={1}]{cover.pdf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter*
 Executive Summary
 \end_layout
@@ -187,8 +206,15 @@ Acknowledgments
 \end_layout
 
 \begin_layout Standard
-I would like to thank a lot of people, but I'll get back to this later.
- 
+I would like to thank Rafal Bogacz, who has constantly guided and supported
+ me throughout the course of the project.
+ I also thank Matt Jones for his constant help.
+ Tom and Nadine, for their help with MQL and guidance.
+ Katherine Ross, for being there to support me throughout, and for making
+ the last one year absolutely memorable.
+ Also my parents, for supporting me and encouraging me throughout.
+ etc.
+ etc.
 \end_layout
 
 \begin_layout Standard
@@ -946,7 +972,7 @@ key "Euston2007"
  by a predetermined amount, it was classified as a non-local activation.
  At the choice points, the place cells tended to fire ahead of the animal,
  rather than behind (backward sweeps indicate past experience, or replay).
- It should be notes that, there were certain non-local sequence reconstructions
+ It should be noted that, there were certain non-local sequence reconstructions
  that did not fit in with the environment, and were subsequently eliminated
  from the data set and from further analysis.
 \end_layout
@@ -2392,16 +2418,63 @@ name "chap:Implementation"
 
 \end_layout
 
+\begin_layout Standard
+This chapter focuses on the implementation and the components of toolbox,
+ and is divided into four subdivisions.
+\end_layout
+
 \begin_layout Section
 Structure of the toolbox
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+ReconTool
+\noun default
+ is written in MATLAB and developed using a modular design.
+ This allows different functions or modules to be modified or interchanged
+ easily.
 \end_layout
 
 \begin_layout Subsection
 User interface
 \end_layout
 
+\begin_layout Standard
+The main methods of the toolbox are accessed via the MATLAB command line
+ interface.
+ All objects and parameters are passed to the function.
+ Most of parameters can be modified, but take on default values if not specified
+ by the user.
+ For more information, please refer to the documentation in the appendix.
+\end_layout
+
 \begin_layout Subsection
-Data types
+Data
+\end_layout
+
+\begin_layout Standard
+The two main input data types 
+\noun on
+ReconTool 
+\noun default
+works on is the trajectory and neural spike trains.
+ 
+\end_layout
+
+\begin_layout Description
+Trajectories Trajectories are defined in the form of a matrix, with T rows
+ and 3 columns, where T is the number of timestep.
+ The three columns represent the time stamp in seconds, X-coordinate, and
+ Y-coordinate respectively.
+\end_layout
+
+\begin_layout Description
+Spiketraindata A spike train of a neuron is defined as a single vector,
+ containing the timestamps at which the neuron fired.
+ An array of such spike trains are put together in an array to represent
+ the spike trains of a neural ensemble.
 \end_layout
 
 \begin_layout Section
@@ -2461,6 +2534,13 @@ T-Maze task
 
 \begin_layout Section
 Evaluating reconstruction accuracy
+\end_layout
+
+\begin_layout Standard
+Reconstruction over an interval of time consists of estimating the position
+ of the animal for many discrete timesteps.
+ An error in reconstruction at a timestep can be said to occur if the actual
+ 
 \end_layout
 
 \begin_layout Subsection
