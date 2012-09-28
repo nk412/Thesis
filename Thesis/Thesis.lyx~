@@ -1106,6 +1106,13 @@ key "Jones2005"
 
 \begin_layout Section
 Jones & Wilson T-maze task
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Jones-&-Wilson"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2462,8 +2469,8 @@ ReconTool
  user input.
  The first section of this chapter describes the toolbox's general structure
  and interface.
- The core reconstruction algorithm is based on the work described in chapter
- 
+ The core reconstruction algorithm, described in sections 3.2 and 3.3, is
+ based on the work described in chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:Theoretical-background"
@@ -2476,6 +2483,39 @@ reference "chap:Theoretical-background"
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Reconstruction"
+
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\emph on
+
+\begin_inset Newline newline
+\end_inset
+
+
+\emph default
+NOTE:
+\emph on
+ All figures in this chapter are generated from sample data recorded from
+ rats navigating the T-maze task 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jones2005"
+
+\end_inset
+
+, and are generated using visualization functions developed as part of 
+\noun on
+ReconTool
+\noun default
+, which are described in detail in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Visualizing-the-data"
 
 \end_inset
 
@@ -2579,8 +2619,15 @@ There are two main methods for the toolbox: training & reconstruction.
  the provided novel spike train, to decode the corresponding trajectory
  of the animal.
  The toolbox also contains other auxillary functions to visualize data,
- which are described later.
- The figure provides an illustration of the two main methods and model creation.
+ which are described in later sections.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Training-and-reconstruction"
+
+\end_inset
+
+ provides an illustration of the two main methods and model creation.
  
 \begin_inset Note Note
 status open
@@ -2605,7 +2652,7 @@ status open
 \begin_inset Graphics
 	filename Images/toolbox_methods.png
 	lyxscale 40
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -2617,6 +2664,13 @@ status open
 
 \begin_layout Plain Layout
 Training and reconstruction
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Training-and-reconstruction"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2657,7 +2711,14 @@ The training method can also take two other optional parameters: the grid
  into.
  This discretized positional information is used in calculating the parameters
  of the model.
- Figure demonstrates the discretization of a small section of a trajectory.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Discretizing-position-data"
+
+\end_inset
+
+ demonstrates the discretization of a small section of a trajectory.
  After reconstruction, the estimated trajectory will also be returned on
  a grid of the same size.
  If not specified by the user, training is carried out by default on a grid
@@ -2740,7 +2801,7 @@ status open
 \begin_inset Graphics
 	filename Images/continuous_x.png
 	lyxscale 40
-	scale 66
+	scale 50
 
 \end_inset
 
@@ -2771,7 +2832,7 @@ status open
 \begin_inset Graphics
 	filename Images/discrete_x.png
 	lyxscale 40
-	scale 66
+	scale 50
 
 \end_inset
 
@@ -2800,6 +2861,13 @@ After discretization
 
 \begin_layout Plain Layout
 Discretizing position data
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Discretizing-position-data"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2823,24 +2891,24 @@ In this figure, only the X-coordinate of the trajectory is illustrated for
 \end_layout
 
 \begin_layout Subsection
-Spatial occupancy
+Calculating spatial occupancy
 \end_layout
 
 \begin_layout Standard
-For every single time step, the location of the animal is counted.
+For every single time step, the location of the animal is noted.
  In the resulting spatial map, the value at every location represents the
  number of times the animal visits it through the course of the input trajectory.
  The locations where the animal never visits (such as those outside the
  maze), have a value of 0.
  Locations where the animal spends most of its time have higher values.
  It should be noted that this map does not reveal how long the animal stays
- at a location, but merely represents the number of times each location
- is visited.
+ consecutively at a location, but merely represents the number of times
+ each location is visited.
 \end_layout
 
 \begin_layout Standard
-To caclulate the time spent at any location, the sampling rate of the trajectory
-, 
+To caclulate the total time spent at any location, the sampling rate of
+ the trajectory, 
 \begin_inset Formula $\Delta t$
 \end_inset
 
@@ -2907,7 +2975,7 @@ status open
 \begin_inset Graphics
 	filename Images/occupancy.png
 	lyxscale 45
-	scale 60
+	scale 40
 
 \end_inset
 
@@ -2943,7 +3011,7 @@ This figure shows the locations where the animal visits the most.
 \end_layout
 
 \begin_layout Subsection
-Firing rates
+Quantifying firing rates
 \end_layout
 
 \begin_layout Standard
@@ -2958,6 +3026,13 @@ The firing rates of neurons encode most of the information about external
  by the time spent by the animal at that location (described previously
  in Equation 2.2).
  The firing rates of most place cells, as can be seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Firing-rates-of"
+
+\end_inset
+
+
 \begin_inset Note Note
 status open
 
@@ -3106,6 +3181,13 @@ status collapsed
 
 \begin_layout Plain Layout
 Firing rates of neurons
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Firing-rates-of"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3176,7 +3258,7 @@ status open
 \begin_inset Graphics
 	filename Images/vel1.png
 	lyxscale 40
-	scale 70
+	scale 50
 
 \end_inset
 
@@ -3222,8 +3304,8 @@ The parameter model is a formatted object (a MATLAB cell array) that represents
  any reconstruction algorithm to decode a spike train.
  The training method allows multiple models to be trained on the same data,
  but with different parameters such as grid size and intervals.
- This can be used to decode a specific spike train, and evaluate the results
- of different parameters.
+ These models can be used to decode a specific spike train, and evaluate
+ the results of different parameters.
  The information contained in a model are described below.
 \end_layout
 
@@ -3243,8 +3325,8 @@ Training parameters
 \emph on
 Spatial occupancy
 \emph default
-: A matrix containing the number of times each position was visited as well
- as a normalized probability distribution.
+: A matrix containing the number of times each position was visited, as
+ well as a normalized probability distribution.
 \end_layout
 
 \begin_layout Enumerate
@@ -3261,7 +3343,7 @@ Firing rates
 Velocity information
 \emph default
 : A matrix containing the maximum number of timesteps the animal spends
- at any location.
+ consecutively at every location.
 \end_layout
 
 \begin_layout Section
@@ -3281,12 +3363,19 @@ The reconstruction phase involves using the model created by the training
  The two main objects passed to the reconstruction method are the parameter
  model and the spike trains to be decoded.
  Several other optional parameters can also be specified, such as reconstruction
- intervals, and algorithm specific variables such as time window.
+ intervals, and algorithm specific variables such as the width of the 
+\emph on
+time window
+\emph default
+.
  By specifying reconstruction intervals, we can decode only trajectories
  lying between those intervals.
  When more than one interval is specified, the decoding is carried out on
- each individual interval and the output trajectories are obtained in the
- form of an array.
+ each individual interval seperately and the output trajectories are obtained
+ in the form of an array.
+ The reconstruction method also returns the probability distribution of
+ the animal's estimated position at every timestep in the form of a cell
+ array, should the user require it.
 \end_layout
 
 \begin_layout Subsection
@@ -3295,21 +3384,30 @@ Compression factor
 
 \begin_layout Standard
 By default, the trajectory is reconstructed, within the specified interval,
- at the same sampling rate of the intial trajectory the model was trained
+ at the same sampling rate of the initial trajectory the model was trained
  on.
+ It might not always be necessary to reconstruct a trajectory at that resolution.
  The compression factor is an optional parameter that can be specified to
  modify this sampling rate.
  By default, the compression factor is set at 1X.
  For example, by having a compression factor of 2X, the number of timesteps
  in the reconstructed trajectory would be half as much as that reconstructed
- at 1X, as it is half the sampling rate.
- The compression factor allows for the user to reconstruct at different
- timescales, both faster and slower, and is not dependent on the algorithm
- used.
- It directly affects the number of times the algorithm module is called,
- and so is not involved in the decoding algorithm.
+ at 1X, as it is sampled at half the original sampling rate.
+\end_layout
+
+\begin_layout Standard
+The compression factor allows for the user to reconstruct at different time
+ scales, allowing finer control for observing sequential activity occuring
+ at faster time scales.
+ The algorithm module, described in the following section, is an independent
+ component that decodes one point at a time.
+ The compression factor does not depend on the algorithm, it merely controls
+ the number of times the algorithm module is called.
  Having higher compression factors reduce computational times, as there
  are far fewer points to decode at.
+ Having a high compression factors tend to make the reconstructed plots
+ smooth, and this may fail to capture some rapid non-local representations
+ of the position of the animal.
  
 \begin_inset Note Note
 status open
@@ -3328,14 +3426,14 @@ Algorithm
 \end_layout
 
 \begin_layout Standard
-The algorithm is the core module that decodes a part of the spike train,
- and does so one point at a time.
+The algorithm is the core module that is responsible for decoding the spike
+ train, and it does so one point at a time.
  It is implemented as a seperate module, so that modifications can be made
  and/or swapped with improved algorithms.
- The algorithm module recieves the trained model, firing rates, spike trains,
- and all other parameters required to decode the spike train.
+ The method recieves the trained model, firing rates, spike trains, and
+ all other parameters required to decode the spike train.
  There are several algorithms to decode a spike train, but the implementation
- described here uses Bayesian inference, and is based on the work by 
+ described here uses Bayesian inference, based on the work by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Zhang1998"
@@ -3347,7 +3445,7 @@ key "Zhang1998"
 \end_layout
 
 \begin_layout Standard
-To decode the spike train to estimate position at time 
+To estimate position at time 
 \begin_inset Formula $t$
 \end_inset
 
@@ -3358,8 +3456,8 @@ To decode the spike train to estimate position at time
 
  are observed.
  This window is called the time window, and by default, it is set at 1 second.
- A time window of 1 second implies that all spiking activity of neurons
- falling between 
+ For example, a time window of 1 second implies that all spiking activity
+ of neurons falling between 
 \begin_inset Formula $t-0.5s$
 \end_inset
 
@@ -3381,6 +3479,15 @@ To decode the spike train to estimate position at time
 \end_inset
 
 .
+ By sliding this time window forward for every increment in time step 
+\begin_inset Formula $t$
+\end_inset
+
+, it is possible to reconstruct the positions of the animal over a period
+ of time.
+ The amount by which the time step is incremented by and time window is
+ moved forward by is dictated by the compression factor.
+ 
 \begin_inset Note Note
 status open
 
@@ -3404,7 +3511,7 @@ status open
 \begin_inset Graphics
 	filename Images/timewindow_3n.png
 	lyxscale 40
-	scale 50
+	scale 45
 
 \end_inset
 
@@ -3415,12 +3522,27 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Time window
+Spike selection using time window
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+In this figure, the spikes of three neurons are represented by vertical
+ lines.
+ For the decoding process, only the spikes falling within the time window
+ (of width 
+\begin_inset Formula $\tau$
+\end_inset
+
+) are counted for each neuron.
+ By sliding this time window forward for every time step, a trajectory is
+ reconstructed.
 \end_layout
 
 \begin_layout Plain Layout
@@ -3432,10 +3554,14 @@ Time window
 
 \end_layout
 
+\begin_layout Subsubsection
+Bayes' law
+\end_layout
+
 \begin_layout Standard
 The estimation works by finding the probability that the animal is at a
  location given the spiking activity of the neurons (within the time window).
- The Bayes theorem, in this context of reconstruction, can be written as
+ Bayes' theorem, in this context of reconstruction, can be written as
 \end_layout
 
 \begin_layout Standard
@@ -3490,7 +3616,7 @@ key "Zhang1998"
 \begin_layout Standard
 \begin_inset Formula 
 \[
-P(\mathbf{n}|\mathbf{x})=\prod_{i=1}^{N}P(n_{i}|\mathbf{x})=\prod_{i=1}^{N}\frac{(\tau f_{i}(\mathbf{x}))^{n_{i}}}{n_{i}!}\exp(-\tau f_{i}(x))
+P(\mathbf{n}|\mathbf{x})=\prod_{i=1}^{N}P(n_{i}|\mathbf{x})=\prod_{i=1}^{N}\frac{(\tau f_{i}(\mathbf{x}))^{n_{i}}}{n_{i}!}\exp(-\tau f_{i}(\mathbf{x}))
 \]
 
 \end_inset
@@ -3499,7 +3625,12 @@ P(\mathbf{n}|\mathbf{x})=\prod_{i=1}^{N}P(n_{i}|\mathbf{x})=\prod_{i=1}^{N}\frac
 \end_layout
 
 \begin_layout Standard
-Combining this with the above equation,
+In the above equation, 
+\begin_inset Formula $\tau$
+\end_inset
+
+ represents the width of the time window.
+ Combining this expression with Bayes' law in equation,
 \end_layout
 
 \begin_layout Standard
@@ -3514,8 +3645,8 @@ P(\mathbf{x}|\mathbf{n})=P(\mathbf{x})\left(\prod_{i=1}^{N}f_{i}(\mathbf{x})^{n_
 \end_layout
 
 \begin_layout Standard
-To normalize this distribution to a probability distribution that sums up
- to 1, every value is divided by the total sum of the distribution.
+To normalize this distribution to represent a probability distribution that
+ sums up to 1, each value is divided by the total sum of the distribution.
 \end_layout
 
 \begin_layout Standard
@@ -3541,13 +3672,21 @@ name "sec:Visualizing-the-data"
 \end_layout
 
 \begin_layout Standard
-The toolbox also provides several methods for the user to visualize data.
- Firing rates and occupancy can be immediately visualized after the training
- method has been called, simply passing the parameter model object.
- The object contains the spatial occupancy map and firing rates of the neurons,
- and the function simply displays it on screen.
- Firing rates are displayed in standard units of Hertz.
- Examples of these visualizations can be seen in figures .
+Data visualizations can provide information in a way that is much clearer
+ and simpler to understand.
+ In the case of neural spike trains and trajectories, visualizations can
+ provide a clear picture of place fields and information about the animal's
+ movement and location.
+ To aid the user, ReconTool has several visualization functions to display
+ such information in a graphical format.
+ The parameter model that is trained from the data, contains all these informati
+on about spike firing rates and the position of the animal.
+ By simply providing this model, it is possible to visualize firing rates
+ of any neuron, in standard units of Hertz, and the spatial occupancy of
+ the animal (please see Appendix on how to use these functions).
+ Examples of these visualizations can be seen in figures.
+ Functions to visualize data post-reconstruction also exist and are described
+ in the following sections.
 \end_layout
 
 \begin_layout Subsection
@@ -3559,7 +3698,7 @@ Place cells tend to fire in specific regions of the map known as place fields.
  For every location of the map, it is possible to find the neuron for which
  it most selective.
  In other words, every location of the map can be assigned a neuron that
- is shows most activity when compared to all other neurons.
+ shows most activity at that location, when compared to all other neurons.
  This map of neuron selectivity can be obtained by finding the neuron with
  the largest firing rate to 
 \emph on
@@ -3594,6 +3733,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename Images/selectivity.png
+	lyxscale 45
 	scale 45
 
 \end_inset
@@ -3616,15 +3756,190 @@ Neuron Selectivity
 \end_layout
 
 \begin_layout Standard
-The resulting figure shows a map of place fields, where each color represents
- a neuron.
- This visualization can be used to evaluate if there is sufficient number
- of neurons with distinct place fields for an accurate reconstruction.
- This function can also be called 
+The resulting figure shows a map of the most selective neurons for each
+ location, where each color represents a neuron, and these can be intepreted
+ as place fields.
+ This visualization can be used to shed light on whether there is enouhg
+ information contained within the neuron firing rates for an accurate reconstruc
+tion.
+ As with the firing rates, this map can be visualized by simply providing
+ the trained parameter model.
+\end_layout
+
+\begin_layout Subsection
+Plotting trajectories
+\end_layout
+
+\begin_layout Standard
+The reconstruction algorithm returns a trajectory containing the estimated
+ locations, the X and Y coordinates, per timestep.
+ Given the actual position of the animal through this interval, it is possible
+ to plot these trajectories over each other to visually compare the reconstructe
+d trajectory, and observe where deviations occur.
+ Due to the difficulty to simultaneously visualize the variance of both
+ X and Y coordinates with time in a single 2D plot, the visualization function
+ generates two sets of plots, one for each coordinate.
+ For example, a high value on the X-coordinate plot would indicate that
+ the animal is on the left side of the maze, and a low value would indicate
+ the right side of the map.
+ Similarly, high and low values for Y would indicate the animal at the upper
+ or lower region of the maze respectively.
+ When the value of X increases sharply from one end to the other, it indicates
+ that the animal is moving across the central arm.
+\end_layout
+
+\begin_layout Standard
+A trajectory drawn in red indicates the actual trajectory of the animal,
+ and its movement across the maze, while the blue line represents the reconstruc
+ted trajectory.
+ The X-axis spans across the reconstruction interval and is in default units
+ of seconds.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/displayPlots_x.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+X coord vs Time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/displayPlots_y.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Y-coord vs Time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Trajectory plots
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Trajectory animations
+\end_layout
+
+\begin_layout Standard
+While plotting trajectories is a useful way to visually study the reconstruction
+, it is not useful to easily evaluate non-local sequential activation of
+ place cells, representing different regions in the map.
+ For this reason, a function to provide an animation of the animal and the
+ probability distribution of the estimated position of the animal as given
+ by the reconstructed trajectory is provided.
+ In this animation, it is possible to see the movement of the animal, whose
+ location represented in maroon, overlayed over the probability distribution
+ of the estimated location of the animal at that timestep.
+ The speed of the animation can be controlled by the user via functional
+ parameters.
 \end_layout
 
 \begin_layout Section
 Methods for data analysis
+\end_layout
+
+\begin_layout Standard
+The reconstruction method simply provides a trajectory, that contains the
+ estimated position at every timestep.
+ To evaluate the accuracy of reconstruction for the model, reconstruction
+ is carried out over a spike train whos corresponding trajectory is known.
+ This could involve either testing on training set (which may introduce
+ errors of overfitting), or testing on a holdout set.
+ In either method, the actual trajectory is compared with the reconstructed
+ trajectory.
+ For evaluating the model's accuracy in predicting the location based on
+ novel spikes, this section introduces the concept of a null model and methods
+ to calculate the coefficent of determination, 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+, and run cross validation tests.
 \end_layout
 
 \begin_layout Subsection
@@ -3646,12 +3961,16 @@ The coefficient of determination,
  intervals and new spike trains.
  To calculate this value, we would first need to introduce a null model
  to compare our model with.
- The null model serves the purpose of a benchmark to evaluate the performance
+ 
+\end_layout
+
+\begin_layout Standard
+The null model serves the purpose of a benchmark to evaluate the performance
  of the reconstruction model with.
  It uses a lazy estimation technique and returns the location where the
  animal is most likely to be in, based on input positional data, constantly
  for all points in the interval.
- It does not use any spiking data to make its prediction.
+ It does not use any spike data in any way to make its prediction.
  The reconstructed position of the null model can be described by the following
  equation.
 \end_layout
@@ -3672,19 +3991,15 @@ An error in reconstruction at a point in time,
 \begin_inset Formula $t$
 \end_inset
 
-, is said to occur if the actual locatdel can be expected to reconstruct
- on new intervals and new spike trains.
- To calculate this value, we would first need to introduce a null model
- to compare our model with.
- The null model serves the purpose of a benchmark to evaluate the performance
- of the reconstruction model with.
- It uses a lazy estimation technique and returns the location where the
- animal is most likely to be in, based on input positional data, constantly
- for all points in the interval.
- It does not use any spiking data to make its prediction.
- The reconstructed position of the null model can be described by the following
- equation.ion of the animal and the reconstructed location at that time step
- are not identicial.
+, is said to occur if the actual location 
+\begin_inset Formula $\mathbf{x}_{real}$
+\end_inset
+
+ and the reconstruction location 
+\begin_inset Formula $\mathbf{x}_{Bayes}$
+\end_inset
+
+ are not identical.
  The degree of error is given by the Euclidean distance between these two
  points.
 \end_layout
@@ -3786,20 +4101,93 @@ y.
 \end_inset
 
  random folds.
- However, the algorithm uses a second step to 
-\begin_inset Quotes eld
+ However, the algorithm, as the one implemented does, may use information
+ from the previous estimate to alter or fix a current estimate of the location.
+ For this reason, cross validation performs better when the interval is
+ divided into 
+\begin_inset Formula $n$
 \end_inset
 
-fix
-\begin_inset Quotes erd
+ approximately equal segments, where each segment is a continuous interval
+ on its own.
+\end_layout
+
+\begin_layout Standard
+The cross validation function implemented in 
+\noun on
+ReconTool 
+\noun default
+returns a vector of 
+\begin_inset Formula $n$
 \end_inset
 
- the estimated position, if it deviates beyond a threshold from the previous
- point in time (Section )
+ values, which are the coefficient of determination, 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+, values for the reconstruction carried out on the intervals specified by
+ each of the 
+\begin_inset Formula $n$
+\end_inset
+
+ folds.
+\end_layout
+
+\begin_layout Subsubsection
+Model Accuracy
+\end_layout
+
+\begin_layout Standard
+In the context of this report, the accuracy of reconstruction for a model
+ refers to the mean of the 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ values on all folds, of a 10-fold cross validation on a trajectory.
+ In most of the analyses carried out in Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Analysis-using-ReconTool"
+
+\end_inset
+
+, this measure of model accuracy is used.
+ 
 \end_layout
 
 \begin_layout Section
 Optimization
+\end_layout
+
+\begin_layout Standard
+Given the computational and time complexity of decoding algorithms, 
+\noun on
+ReconTool 
+\noun default
+aims for a fast, accurate, and flexible reconstruction.
+ While training a model is fast, decoding involves calculating the likelihood
+ of an animal being present at every location, for every time step in the
+ interval, and is a relatively much longer process.
+ Decoding involves calculating the number of spikes occuring within the
+ time window, which moves with every timestep.
+ The algorithm is implemented in a way that makes the maximum use of MATLAB's
+ optimized matrix functions.
+ Locations where the animal never visits in the training trajectory are
+ completely ignored by the algorithm, to eliminate redundant computation.
+ The spikes within the time window are counted using a system of dynamic
+ indices, that keep track of the first and the last spike within the interval,
+ updated only when a new spike falls within the window or an old spike no
+ longer falls inside the window.
+ The number of spikes within the window is calculated by simply subtracting
+ the array indices of the first and last spike within the window.
+ This method of counting spikes is more than 10x faster than manually counting
+ by checking the occurence of a spike within the bounds of the time window.
+ The reason for the huge performance difference is because the method of
+ using dynamic indices for counting exploits the fact that the spike train
+ is already sorted.
+ Finally, to provide the user an estimate of the time remaining, the toolbox
+ also includes a wait bar that appears during decoding.
+ 
 \end_layout
 
 \begin_layout Chapter
@@ -3813,45 +4201,214 @@ name "chap:Analysis-using-ReconTool"
 
 \end_layout
 
-\begin_layout Section
-T-Maze task
+\begin_layout Standard
+In this chapter, 
+\noun on
+ReconTool 
+\noun default
+is used on data recorded from rats navigating the T-maze task (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Jones-&-Wilson"
+
+\end_inset
+
+) carried out by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Jones2005"
+
+\end_inset
+
+.
+ The accuracy of reconstruction is studied along with the different parameters
+ that affect it.
+ 
 \end_layout
 
 \begin_layout Section
-Evaluating reconstruction accuracy
+Reconstruction accuracy
 \end_layout
 
 \begin_layout Standard
-Reconstruction over an interval of time consists of estimating the position
- of the animal for many discrete timesteps.
- An error in reconstruction at a timestep can be said to occur if the actual
- location and the estimated location do not match.
- For the degree of error, the Euclidean distance betweeen these two points
- is measured.
- Therefore for every step, the Euclidean distance between the actual location
- and reconstructed position is calculated.
- In a simple way, the error of reconstruction over an interval can be said
- to be the sum of errors for all time steps within that interval.
- However, this measure depends on parameters such as grid size, and does
- not capture the true reconstruction error.
- For this reason, we introduce a null model, with which to compare the performan
-ce of the reconstruction model.
+To evaluate the performance of the toolbox, a model was initially trained
+ on the entire set on a 32x32 resolution, and a reconstruction was performed
+ on the entire set, using the default parameters (a time window of 1 second
+ and a compression factor of 1X).
+ The reconstruction was completed in less than 6 minutes, and had a model
+ 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ value of 0.82.
+ In order to eliminate the effects of overfitting, a cross validation test
+ was carried out.
 \end_layout
 
 \begin_layout Subsection
-Coeffecient of Determination
+Cross-validation
 \end_layout
 
 \begin_layout Subsection
-Cross validation
+Results
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+23.23232
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hello
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+dsd
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sd
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cross validation.
+ First and last fold.
+ Huge errors.
+ 
 \end_layout
 
 \begin_layout Section
 2-step reconstruction
 \end_layout
 
+\begin_layout Standard
+Decoding a spike train through an interval involves reconstructing the position
+ at every single timestep, to form a trajectory.
+ To reconstruct at a single single time stamp, the Bayesian inference algorithm
+ works by considering all the spikes that occur within the time window,
+ along with positional probability of the animal as well.
+ The algorithm does not use any information from a previous estimate in
+ the trajectory, but only decodes using local information available at that
+ time step.
+ Though a generally high level of accuracy is achieved, there are errors
+ in the estimated trajectory sometimes due to noise.
+ These errors can be seen in trajectory plots in the form of spikes that
+ occur in between an otherwise good region of reconstructed trajectory.
+ These errors can be reduced if constraints on the distance between the
+ current and previous estimated location are established.
+\end_layout
+
+\begin_layout Standard
+This can be done by adding another correctional step after finding the probabili
+ty distribution (the likelihood of the animal being at a location).
+ Normally, the location with the highest probability is chosen as the point,
+ and is included into the reconstructed trajectory.
+ For every location in the distribution, the probability is amplified by
+ its proximity to the previous estimated point in the trajectory.
+ This essentially reduces the probability of estimates located far away
+ from the previous estimate.
+ The animal cannot suddenly move to a distant point in the maze within a
+ single timestep.
+ This correction step, can be further improved by including the varying
+ velocity of the animal into the constraints.
+ As described in the previous chapter, the parameter model also captures
+ velocity information of the animal.
+ 
+\end_layout
+
 \begin_layout Subsection
 Results
+\end_layout
+
+\begin_layout Standard
+Figure.
+ Max>Average>Min>None.
+ Zhang.
+ Algorithm modification.
 \end_layout
 
 \begin_layout Section
@@ -3865,12 +4422,32 @@ name "sec:Effect-of-grid"
 
 \end_layout
 
+\begin_layout Standard
+Experiment.
+ Script.
+ 
+\end_layout
+
 \begin_layout Subsection
 Results
 \end_layout
 
+\begin_layout Standard
+No improvement after a certain point.
+ Steadies at around gridsize 10.
+ This corresponds to columns of width cell size 1.
+\end_layout
+
 \begin_layout Section
 Effect of firing rates on accuracy
+\end_layout
+
+\begin_layout Standard
+Two sets of data.
+ Defined place fields vs not so much.
+ Firing rates vice versa.
+ Figure for firing rates.
+ Experiment.
 \end_layout
 
 \begin_layout Subsection
