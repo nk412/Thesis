@@ -11,7 +11,7 @@
 \renewcommand\[{\begin{equation}}
 \renewcommand\]{\end{equation}}
 \end_preamble
-\options fontsize=11pt,twoside,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
+\options fontsize=11pt,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
 \use_default_options false
 \begin_modules
 customHeadersFooters
@@ -4955,7 +4955,7 @@ reference "sec:Jones-&-Wilson"
 \noun on
 ReconTool
 \noun default
-, it was possible to identify occurences of non-local representations at
+, it is possible to identify occurences of non-local representations at
  junction points.
  
 \end_layout
@@ -4973,8 +4973,7 @@ The reconstruction was carried out over an entire trajectory recording roughly
  threshold.
  Given that the position of the animal is known throughout the trajectory,
  the locations where significant deviations occur are noted.
- By varying the threshold for classifying a significant deviation, different
- maps of occurences of deviations was obtained (Figure).
+ 
 \end_layout
 
 \begin_layout Standard
@@ -5004,6 +5003,11 @@ The map of deviation occurences contains the number of times significant
  As can be seen in figure, this method eliminates the effects of the animal
  spending large amounts of time when counting the number of deviations.
  
+\end_layout
+
+\begin_layout Standard
+By varying the threshold for classifying a significant deviation, different
+ normalized maps of occurences of deviations was obtained, shown in (Figure).
 \end_layout
 
 \begin_layout Standard
@@ -5109,37 +5113,6 @@ Merely counting locations where deviations occur does not actually represent
 
 \end_layout
 
-\begin_layout Subsection
-Results
-\end_layout
-
-\begin_layout Standard
-On the reconstructed trajectory, locations where significant deviations
- occur were noted.
- The threshold for deviations was also varied to analyze the relationship
- between location and the degree of deviations.
- The resulting maps are shown in figure.
- We can infer that
-\end_layout
-
-\begin_layout Itemize
-Significant deviations occur at the reward sites, indicating the occurences
- of non-local sequential activity.
-\end_layout
-
-\begin_layout Itemize
-A large number of deviations also occur at the choice point, and are similar
- to those found by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Johnson2007"
-
-\end_inset
-
-, indicative of mental explorations carried out by the animal before making
- a decision.
-\end_layout
-
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -5175,10 +5148,6 @@ status collapsed
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -5189,7 +5158,7 @@ status collapsed
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -5220,7 +5189,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -5251,7 +5220,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -5282,7 +5251,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -5313,7 +5282,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -5343,7 +5312,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Deviation thresholds
+Deviation occurences at different thresholds
 \end_layout
 
 \end_inset
@@ -5354,10 +5323,320 @@ Deviation thresholds
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Direction-specific deviations
+\end_layout
+
+\begin_layout Standard
+It can be seen from figure that a significant amount of deviations occur
+ at the choice point.
+ As described in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Jones-&-Wilson"
+
+\end_inset
+
+ on the T-maze task, the rat may either be on a choice trial, where it moves
+ towards the choice point and has to make a decision, or on the guided trial,
+ where it is led back by movable barriers.
+ To identify the locations of non-local representations of the animal on
+ each trial, a small script to individually count only deviations occuring
+ when the rodent is moving 
+\emph on
+towards
+\emph default
+ and 
+\emph on
+away 
+\emph default
+the choice point was implemented.
+ The resulting maps are shown in figure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Trial
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Deviations >25cm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Deviations >40cm
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Choice
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+12
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Reward
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Deviation errors at choice point
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Direction_deviations/towards.png
+	lyxscale 30
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Choice trial - towards the choice point
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Direction_deviations/away.png
+	lyxscale 30
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Guided trial - away from the choice point
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Direction-specific deviations 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Standard
+On the reconstructed trajectory, locations where significant deviations
+ occur were noted.
+ The threshold for deviations was also varied to analyze the relationship
+ between location and the degree of deviations.
+ The resulting maps are shown in figure.
+ We can infer that
+\end_layout
+
+\begin_layout Itemize
+Large reconstruction errors tend to occur at the reward sites, indicating
+ the occurences of non-local representations of the position of the animal
+ when it is either slow or stationary, possibly replay occurences during
+ awake rest.
+\end_layout
+
+\begin_layout Itemize
+A large number of deviations also occur at the choice point, similar to
+ those found by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Johnson2007"
+
+\end_inset
+
+.
+ By analyzing the direction of movement of the animal during these deviations,
+ it was found that 
+\emph on
+they occur almost exclusively during the choice trial, as the animal heads
+ towards the choice point, and seldom when the animal is on the guided trial
+\emph default
+.
+ This strongly indicates the occurences of sequential activity representing
+ future locations (preplay), responsible for the mental exploration of new
+ spaces and evaluation of consequences before taking a decision.
+ 
 \end_layout
 
 \begin_layout Chapter
-Discussion
+Discussion & Evaluation
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Discussion"
@@ -5367,24 +5646,298 @@ name "chap:Discussion"
 
 \end_layout
 
+\begin_layout Standard
+This chapter explores the design choices made during the development of
+ the toolbox, and the results and inferences of the different analyses carried
+ out using it.
+\end_layout
+
 \begin_layout Section
-The algorithm
+Toolbox framework
+\end_layout
+
+\begin_layout Standard
+The primary aim of this project is to create a toolbox to decode neural
+ spikes and reconstruct trajectories.
+ There are no toolboxes available freely for neuroscientists to decode neural
+ correlates, and 
+\noun on
+ReconTool 
+\noun default
+fills that gap.
+\end_layout
+
+\begin_layout Standard
+MATLAB was chosen for the development of the toolbox for easy use and compatibil
+ity with other neural analysis toolboxes such as MQL 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jahans-Price2010"
+
+\end_inset
+
+, and due to the availability of built-in statistical analysis and graphical
+ plotting tools in MATLAB.
+\end_layout
+
+\begin_layout Standard
+One of the main concerns during the development of the toolbox was to make
+ it extremely flexible for modifications in the future.
+ There are several neural decoding techniques that exist, and the implemented
+ Bayesian inference is just one of them.
+ Methods such as basis pattern matching, though they use completely different
+ ways of estimating the position of the animal, still require firing rates
+ and other common parameters.
+ This toolbox provides a way for training a model and reconstruction, regardless
+ of the algorithm used.
+ The algorithm itslef is defined as a seperate module, and decodes a single
+ point at a time.
+ Different algorithms can be made and plugged in, with little to no change
+ required in the other modules.
+\end_layout
+
+\begin_layout Standard
+Initially, a graphical user interface was planned, but was discarded due
+ to the extremely simple text commands the toolbox works on.
+ The user only needs to provide the essential data objects, such as the
+ initial trajectory and the spike trains for training, and the new spike
+ train for decoding.
+ All other parameters, both for the algorithm and the reconstruction method,
+ can be provided through optional function arguments.
+ If not specified, the toolbox defaults these parameters to default values,
+ whose values were chosen based on model generation and reconstruction on
+ different data sets from different animals and sources, that are expected
+ to provide a estimate an accurate trajectory.
+ To fully utilize the functionalities of the toolbox, the user will have
+ to vary the parameters, as data from different sources tend to differ in
+ ways that slightly affects accuracy.
+ Detailed documentation about the working, returned data objects, and input
+ arguments are provided for every function in the toolbox, which can be
+ accessed via MATLAB's 
+\noun on
+help
+\noun default
+ command, or in the software documentation (see Appendix).
+\end_layout
+
+\begin_layout Subsection
+Flexibility in error analysis
+\end_layout
+
+\begin_layout Standard
+As with any machine learning algorithm, several methods exist to evaluate
+ the accuracy of reconstruction.
+ While efficient methods to calculate coefficient of determination of the
+ model are provided within the toolbox (section), the user may prefer to
+ use other methods of error analysis.
+ For this reason, 
+\emph on
+reconstruction_error
+\emph default
+ function returns a matrix of values that can be used in different error
+ metrics.
+ 
+\end_layout
+
+\begin_layout Standard
+It contains the actual location of the animal, both in real and grid location
+ units, and the estimated location in real and grid location units as well,
+ for every time step.
+ These locations represent the estimated and the expected value, and they
+ represent the will form the core of any error metric.
+ In the implementation, the Euclidean distance between these two locations
+ are also provided.
+ 
+\end_layout
+
+\begin_layout Section
+The algorithm implementation
+\end_layout
+
+\begin_layout Standard
+The Bayesian inference algorithm was chosen to be implemented because of
+ its higher accuracy when compared to other techniques such non-probabilistic
+ based approaches such as pattern matching 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Zhang1998"
+
+\end_inset
+
+.
+ The algorithm was implemented, and found to have a very high level of accuracy.
+\end_layout
+
+\begin_layout Standard
+Decoding at a simple point involves the count of spikes occuring within
+ a specified time window, and the positional occupancy distribution of the
+ animal.
+ This information is found encapsulated within the trained model.
+ The two biggest assumptions made by the algorithm are that the place cells
+ fire independent to each other and follow a Poisson distribution 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang1998"
+
+\end_inset
+
+.
+ However, both these assumptions are not true, as place cells are sometimes
+ dependent on each other and fire along with other place cells.
+ By assuming a Poisson distribution for the occurence of spikes, the tendancy
+ of neurons to fire in a series of short durations of high spiking activity,
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+bursts
+\begin_inset Quotes erd
+\end_inset
+
+.
+ These assumptions, though incorrect, provide the advantage of being simple
+ to model mathematically, with minimal loss in accuracy.
+ As can be seen by the results of the implementation, the reconstruction
+ algorithm shows a high level of accuracy.
 \end_layout
 
 \begin_layout Subsection
 Efficiency
 \end_layout
 
+\begin_layout Standard
+Despite the obvious advantage of a much higher accuracy in estimating positions
+ as compared with other reconstruction methods, the main disadvantage of
+ using Bayesian inference is the computational and time cost.
+ Counting the number of spikes within a certain interval, requires finding
+ the indices of spikes within a vector.
+ While this on its own is not an expensive task, it is repeated for every
+ neuron, for each location in the map, and for every timestep.
+ This results in large computation times for even moderately long trajectories.
+\end_layout
+
+\begin_layout Standard
+In the very first unoptimized implementation of the algorithm, reconsruction
+ over a 5 minute interval (~ 9000 time steps) took approximately 8 hours.
+ In the current state of the implementation, the algorithm can decode the
+ same 5-minute interval, reproducing the exact same results, in less than
+ 2 minutes.
+ 
+\end_layout
+
+\begin_layout Standard
+A considerable amount of time was spent on optimizing code.
+ MATLAB's superiority over other languages comes in its handling of matrices
+ and extremely fast matrix operations.
+ This was taken into account and several nested for loops were eliminated,
+ and replaced with equivalent matrix operations.
+\end_layout
+
+\begin_layout Standard
+Finding the number of spikes falling within the time window involved a lot
+ of calls to the vector search function.
+ This method of searching did not take into account the fact that the provided
+ spike trains are already sorted.
+ The method of dynamic indices, descriped in detail in the implementation
+ chapter, exploits the fact that the vectors are sorted before hand, and
+ counts the number of spikes by calculating the difference between the indices
+ of the first and last spike of the time window.
+ This method of counting spikes provided the single biggest improvement
+ in execution time.
+ Several other optimization techniques were carried out, such as data sharing
+ between individual modules, in order to prevent redundant calculations
+ and computation.
+ 
+\end_layout
+
+\begin_layout Standard
+The final implementation of the algorithm works extremely fast as compared
+ to the unoptimized code, and can reconstruct an entire 20-minute trajectory,
+ sampled at 30 Hz, at a bin resolution of 
+\begin_inset Formula $16\times16$
+\end_inset
+
+ in under 7 minutes on a desktop computer.
+ It is this speed of the algorithm that permitted more complicated analyses
+ like cross-validation and studying the effects of grid size on accuracy.
+\end_layout
+
 \begin_layout Subsection
 Flexibility
 \end_layout
 
+\begin_layout Standard
+The core algorithm itself is implemented as a seperate module, and is less
+ than 50 lines of code.
+ All core objects such as the trained model and spike trains are passed
+ to the algorithm when it is called.
+ It is called once per point, and returns the estimated location of the
+ animal, along with a probablity distribution across the map.
+ Changes can be made to the algorithm here, or an entirely new algorithm
+ can be devised, and plugged into the toolbox.
+ 
+\end_layout
+
 \begin_layout Section
-The Toolbox implementation
+Reconstruction accuracy
+\end_layout
+
+\begin_layout Standard
+The toolbox and the algorithm implementation was found to have a high level
+ of reconstruction accuracy.
+ The reconstructions were carried out on several sources of data, recorded
+ on rats navigating the T-maze decision task 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Jones2005"
+
+\end_inset
+
+.
+ The accuracy was measured by calculating the coefficient of determination,
+ or goodness of fit of the reconstruction, by comparing the estimated trajectory
+ with that of a null or zero model.
+ The null model uses minimal processing and serves as a benchmark to evaluate
+ other models.
+ Cross validation tests were also carried out to observe the accuracy on
+ new spike trains, and to eliminate the effect of overfitting.
+ 
+\end_layout
+
+\begin_layout Standard
+The coefficient of determination for most reconstruction models were around
+ 0.8, with 1 being ideal indicating zero error.
+ Since the goal of this project is 
+\emph on
+not
+\emph default
+ to recreate trajectories with minimal error, but instead reproduce internal
+ representations of the position of the animal as experienced by the animal
+ itself, deviations in reconstruction and actual trajectory are expected,
+ as they may represent offline sequential activity corresponding to places
+ the animal has previous visited or yet to visit.
+ Thus, the reconstruction algorithm was succesfully implemented with a high
+ level of accuracy.
 \end_layout
 
 \begin_layout Subsection
-Future improvement
+Factors affecting accuracy
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Future work
+\end_layout
+
+\begin_layout Subsection
+Expanding the toolbox
+\end_layout
+
+\begin_layout Subsection
+Further analyses
 \end_layout
 
 \begin_layout Chapter
