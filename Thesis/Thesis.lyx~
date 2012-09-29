@@ -7,11 +7,11 @@
 \pagestyle{scrheadings}
 \pagenumbering{arabic}
 \usepackage{pdfpages}
-\usepackage[left=1.3in,right=1.8in,top=1in,bottom=1in]{geometry}
+\usepackage[left=1.35in,right=1.9in,top=1in,bottom=1in]{geometry}
 \renewcommand\[{\begin{equation}}
 \renewcommand\]{\end{equation}}
 \end_preamble
-\options fontsize=11pt,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
+\options fontsize=11pt,twoside,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
 \use_default_options false
 \begin_modules
 customHeadersFooters
@@ -173,6 +173,13 @@ pagenumbering{roman}
 pagestyle{plain}
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
 \end_inset
 
 
@@ -2500,7 +2507,9 @@ reference "sec:Reconstruction"
 \emph default
 NOTE:
 \emph on
- All figures in this chapter are generated from sample data recorded from
+ 
+\emph default
+All figures in this chapter are generated from sample data recorded from
  rats navigating the T-maze task 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -2519,6 +2528,8 @@ reference "sec:Visualizing-the-data"
 
 \end_inset
 
+
+\emph on
 .
 \end_layout
 
@@ -2533,9 +2544,9 @@ ReconTool
 \noun default
  is entirely written and developed in MATLAB.
  It follows a modular design, allowing for newer algorithms to be developed
- or modifications to be made and plugged in easily.
+ and modifications to be made and plugged in easily.
  The toolbox provides a simple interface for neural spike train decoding.
- Several visualization functions are also developed in order to visually
+ Several visualization functions are also included in order to visually
  analyse the data, which are described in detail in section 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2581,7 +2592,7 @@ Trajectories are defined in the form of a matrix, with T rows and 3 columns,
  The first column for every row represents the timestamp, and the second
  and third columns denote the X and Y coordinate of the animal at that timestamp
  respectively.
- The time stamps should be provided in units of seconds.
+ The time stamps are provided in units of seconds.
  The coordinates of the animal can be specified in any system of units;
  the reconstructed trajectory is calculated in the same units.
  The trajectories can be obtained from any source or device, and thus can
@@ -2599,9 +2610,10 @@ Spike trains
 The spike trains of the neural ensemble is provided in the form of a cell
  array, containing several vectors, where each vector corresponds to a single
  neuron of the ensemble.
- Each vector contains the time stamps at which it fires.
+ Each vector contains all the time stamps in sequential order at which the
+ neuron fires.
  An array of these vectors representing all the neurons gives the spike
- trains for the neural ensemble.
+ train for the neural ensemble.
 \end_layout
 
 \begin_layout Subsection
@@ -2609,43 +2621,10 @@ Main methods
 \end_layout
 
 \begin_layout Standard
-There are two main methods for the toolbox: training & reconstruction.
- The training phase involves the algorithm learning from position data and
- spike trains recorded from the animal.
- A model is returned, that encompasses all the information that can be gathered
- from the given data.
- The model contains parameters such as firing rate maps and spatial occupancy.
- During the reconstruction phase, this trained model is used along with
- the provided novel spike train, to decode the corresponding trajectory
- of the animal.
- The toolbox also contains other auxillary functions to visualize data,
- which are described in later sections.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Training-and-reconstruction"
-
-\end_inset
-
- provides an illustration of the two main methods and model creation.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Figure, explaining model creation
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -2679,10 +2658,45 @@ name "fig:Training-and-reconstruction"
 \end_layout
 
 \begin_layout Plain Layout
+\align center
 
-\emph on
+\size small
 Training a model requires the initial trajectory and the spike trains.
  The model is used by the reconstruction method to decode a new spike train.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are two main methods for the toolbox: training & reconstruction.
+ The training phase involves the algorithm generating a model by learning
+ from position data and spike trains recorded from the animal.
+ The model encompasses all the information that can be gathered from the
+ given data.
+ It contains parameters such as firing rate maps and spatial occupancy.
+ During the reconstruction phase, this trained model is used along with
+ the provided spike train, to decode the corresponding trajectory of the
+ animal.
+ The toolbox also contains other auxillary functions to visualize data,
+ which are described in later sections.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Training-and-reconstruction"
+
+\end_inset
+
+ provides an illustration describing the working of these two main methods
+ and model creation.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Figure, explaining model creation
 \end_layout
 
 \end_inset
@@ -2746,42 +2760,11 @@ The resulting parameter model contains all the information in the form of
  The goal of generating this parameter model is to provide all the positional
  and spiking information of the neurons in a single, formatted, object,
  that can be used by any decoding algorithm for reconstruction.
- The steps to generate this model is described in the following sub-sections.
+ The steps to generate this model are described in the following sub-sections.
 \end_layout
 
 \begin_layout Subsection
 Discretizing position data
-\end_layout
-
-\begin_layout Standard
-The first step in training a model is the discretization of positional data.
- The given trajectory is in the form of continuous system of coordinates,
- and discretization reduces this onto a smaller coordinate system.
- The location of the animal is represented by a more simpler, normalized
- coordinate system, irrespective of the initial system of units.
- Moreover, for the analysis of local and non-local representations of the
- position of the animal, it is favorable to use a smaller and more discrete
- location system.
- The variance of reconstruction accuracy with grid size is described in
- section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Effect-of-grid"
-
-\end_inset
-
-.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Figure to convert true plot into discretized grid
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -2876,8 +2859,9 @@ name "fig:Discretizing-position-data"
 \end_layout
 
 \begin_layout Plain Layout
+\align center
 
-\emph on
+\size small
 In this figure, only the X-coordinate of the trajectory is illustrated for
  convenience.
  (a) shows the variance of X with time in true units, without any modification.
@@ -2890,12 +2874,99 @@ In this figure, only the X-coordinate of the trajectory is illustrated for
 
 \end_layout
 
+\begin_layout Standard
+The first step in training a model is the discretization of positional data.
+ The given trajectory is in the form of continuous system of coordinates,
+ and discretization reduces this onto a smaller coordinate system.
+ Once discretized, the location of the animal is represented by a more simpler,
+ normalized coordinate system, irrespective of the initial system of units.
+ Moreover, for the analysis of local and non-local representations of the
+ position of the animal, it is favorable to use a smaller and more discrete
+ location system.
+ The variance of reconstruction accuracy with grid size is analyzed in section
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Effect-of-grid"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Figure to convert true plot into discretized grid
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Calculating spatial occupancy
 \end_layout
 
 \begin_layout Standard
-For every single time step, the location of the animal is noted.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/occupancy.png
+	lyxscale 45
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Spatial occupancy visualization
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Spatial-occupancy-visualization"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\size small
+This figure shows the locations where the animal visits the most.
+ This probability distribution, 
+\begin_inset Formula $P(\mathbf{x})$
+\end_inset
+
+, represents where the animal is likely to be at any given time.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Spatial occupancy represents the likelihood of the animal being at a location
+ at any random point in time.
+ For every single time step, the location of the animal is noted.
  In the resulting spatial map, the value at every location represents the
  number of times the animal visits it through the course of the input trajectory.
  The locations where the animal never visits (such as those outside the
@@ -2949,60 +3020,21 @@ Therefore, the sum of all the values in the spatial occupancy map equals
 
 , is obtained.
  This distribution is used by the reconstruction algorithm during decoding,
- which is described in later sections.
- A visualization of this distribution can be seen in figure.
+ which is described in the following sections.
+ A visualization of this distribution can be seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spatial-occupancy-visualization"
+
+\end_inset
+
+.
  
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
 Figure that shows P(x)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename Images/occupancy.png
-	lyxscale 45
-	scale 40
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Spatial occupancy visualization
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\emph on
-This figure shows the locations where the animal visits the most.
- This probability distribution, 
-\begin_inset Formula $P(\mathbf{x})$
-\end_inset
-
-, represents where the animal is likely to be at any given time.
 \end_layout
 
 \end_inset
@@ -3020,8 +3052,8 @@ The firing rates of neurons encode most of the information about external
  In the context of decoding, the spike train, which is simply a vector of
  time stamps at which the neuron fires, can be condensed to a map of firing
  rates at every location for every neuron.
- The firing rate of a neuron is calculated at every location in the map
- (discretized).
+ The firing rate of a neuron is calculated at every location in the discretized
+ map.
  It is obtained by dividing the number of times a neuron fires at a location,
  by the time spent by the animal at that location (described previously
  in Equation 2.2).
@@ -3042,7 +3074,8 @@ Figure frates
 
 \end_inset
 
-, tend to be concentrated on certain regions of the map, their place fields.
+, tend to be concentrated on certain regions of the map, i.e.
+ their corresponding place fields.
  
 \end_layout
 
@@ -3196,8 +3229,9 @@ name "fig:Firing-rates-of"
 \end_layout
 
 \begin_layout Plain Layout
+\align center
 
-\emph on
+\size small
 The firing rates of four random neurons are shown here, to illustrate place
  fields and selective firing at certain locations.
  (a) & (d): Exhibits activity at reward sites; (b) & (c), Active at the
@@ -3220,20 +3254,20 @@ The animal traverses through the maze at different velocities at different
  the animal visits the most, it does not in any way capture the velocity
  of the animal.
  A simple way to gather information about the velocity of the animal is
- by counting the maximum number of timesteps the animal spends 
+ by counting the number of timesteps the animal spends 
 \emph on
 consecutively
 \emph default
  at a location.
- This value effectively represents the maximum time the animal spent passing
- through that location.
+ This value effectively represents the time the animal spent passing through
+ that location.
  The numeric value is inversely proportional to the velocity of the animal
  at that location.
  If the animal spent a relatively large amount of time consecutively at
- a location, it can be said to have a low velocity at that point.
+ a location, it can be said to have a low velocity at that location.
  While this information is not directly used in the reconstruction process,
  algorithms may use the velocity of the animal to modify or 'fix' an already
- reconstructed trajectory.
+ reconstructed trajectory for improved accuracy.
  
 \begin_inset Note Note
 status open
@@ -3278,8 +3312,9 @@ Capturing velocity information
 \end_layout
 
 \begin_layout Plain Layout
+\align center
 
-\emph on
+\size small
 This figure shows the maximum time spent by the animal at each location.
  The peaks indicate that the animal spends considerable amount of time at
  reward points.
@@ -3298,7 +3333,7 @@ Parameter model
 
 \begin_layout Standard
 The parameter model is a formatted object (a MATLAB cell array) that represents
- all the information learned from the provided position and spike trains
+ all the information learned from the provided trajectory and spike trains
  of the animal.
  The goal of the model is to provide a single object which can be used by
  any reconstruction algorithm to decode a spike train.
@@ -3342,7 +3377,7 @@ Firing rates
 \emph on
 Velocity information
 \emph default
-: A matrix containing the maximum number of timesteps the animal spends
+: A matrix containing the maximum number of time steps the animal spends
  consecutively at every location.
 \end_layout
 
@@ -3658,6 +3693,10 @@ P(\mathbf{x}|\mathbf{n})=\frac{P(\mathbf{x}|\mathbf{n})}{\sum_{\mathbf{x}}P(\mat
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Adding continuity constraints
 \end_layout
 
 \begin_layout Section
@@ -4206,23 +4245,27 @@ In this chapter,
 \noun on
 ReconTool 
 \noun default
-is used on data recorded from rats navigating the T-maze task (section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Jones-&-Wilson"
-
-\end_inset
-
-) carried out by 
+is used on data recorded by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Jones2005"
 
 \end_inset
 
-.
- The accuracy of reconstruction is studied along with the different parameters
+ from rats navigating the T-maze task (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Jones-&-Wilson"
+
+\end_inset
+
+).
+ The accuracy of reconstruction is examined along with the different parameters
  that affect it.
+ In the final section of this chapter, the relation between errors in reconstruc
+tion and velocity of the animal is examined, as this may be indicative of
+ the occurences of non-local representations of the postion of the animal,
+ and OSA such as replay and preplay.
  
 \end_layout
 
@@ -4232,35 +4275,179 @@ Reconstruction accuracy
 
 \begin_layout Standard
 To evaluate the performance of the toolbox, a model was initially trained
- on the entire set on a 32x32 resolution, and a reconstruction was performed
- on the entire set, using the default parameters (a time window of 1 second
- and a compression factor of 1X).
- The reconstruction was completed in less than 6 minutes, and had a model
+ on the entire set on a 
+\begin_inset Formula $16\times16$
+\end_inset
+
+ bin resolution, and a reconstruction was performed on the entire set, using
+ the default parameters (a time window of 1 second and a compression factor
+ of 1X).
+ The reconstruction was completed in less than 3 minutes, and the model's
  
 \begin_inset Formula $R^{2}$
 \end_inset
 
- value of 0.82.
- In order to eliminate the effects of overfitting, a cross validation test
- was carried out.
+ value was noted.
+ In order to analyze the model on a novel testing set, a cross validation
+ test was carried out.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Test
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $R^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Full test
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.80
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10-fold CV
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.71
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Reconstruction results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 Cross-validation
 \end_layout
 
-\begin_layout Subsection
-Results
+\begin_layout Standard
+A 10-fold cross validation test was carried out on the trajectory, which
+ roughly equates to about 20 minutes of recording time.
+ The input trajectory was divided into 10 equal sub trajectories, and the
+ training and decoding process was carried out 10 times, each time excluding
+ one of these smaller trajectories from training, and evaluating the accuracy
+ of reconstruction on it.
+ The coefficient of determination, which measures the goodness of fit of
+ reconstruction, was averaged for all 10 folds to obtain a more robust value.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
+<lyxtabular version="3" rows="2" columns="11">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
 <row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Fold #
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -4274,7 +4461,61 @@ Results
 \begin_inset Text
 
 \begin_layout Plain Layout
-23.23232
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
 \end_layout
 
 \end_inset
@@ -4283,36 +4524,7 @@ Results
 \begin_inset Text
 
 \begin_layout Plain Layout
-Hello
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-dsd
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
+10
 \end_layout
 
 \end_inset
@@ -4323,6 +4535,9 @@ dsd
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $R^{2}$
+\end_inset
+
 
 \end_layout
 
@@ -4332,7 +4547,79 @@ dsd
 \begin_inset Text
 
 \begin_layout Plain Layout
-sd
+0.62
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.80
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.80
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.85
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.75
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.74
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.73
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.72
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.78
 \end_layout
 
 \end_inset
@@ -4341,7 +4628,7 @@ sd
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0.26
 \end_layout
 
 \end_inset
@@ -4354,10 +4641,54 @@ sd
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+10-fold cross validation results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Results and inference
+\end_layout
+
 \begin_layout Standard
-Cross validation.
- First and last fold.
- Huge errors.
+The performance of the model during cross validation is slightly poorer
+ than testing on the entire training set, but this is due to the effects
+ of overfitting while training.
+ The more interesting result is the variance of accuracy across the different
+ folds of the cross validation test.
+ The two folds that had the worst reconstruction accuracy, as compared to
+ the others, were either ends of the trajectory.
+ In the data set used, the animal is stationary during the initial part
+ of the trial, and also at the end of the trial for a considerable amount
+ of time.
+ While the total duration of the recorded trajectory is about 20 minutes,
+ the animal is stationary at a reward site for a few minutes both at the
+ beginning and the end of the recording.
+ As the results of the cross validation test indicate, the performance of
+ reconstruction is poorest at these intervals.
+ 
+\end_layout
+
+\begin_layout Standard
+This indicates that the majority of deviations in reconstructed position
+ and actual position, or non-local representations of the position of the
+ animal, tend to occur when the animal is 
+\emph on
+stationary
+\emph default
+, rather than when the animal is moving across the maze.
  
 \end_layout
 
@@ -4423,9 +4754,100 @@ name "sec:Effect-of-grid"
 \end_layout
 
 \begin_layout Standard
-Experiment.
- Script.
+
+\emph on
+What is the best grid size to minimize error during reconstruction?
+\end_layout
+
+\begin_layout Standard
+The grid size determines the size of the map to discretize the position
+ data.
+ This directly affects how the firings rates are calculated, as the size
+ of a location changes.
+ By having a large grid size, the number of locations that are mapped increases,
+ and this implies a higher resolution of the trajectory of the animal.
+ However, this also introduces larger uncertainties in the reconstructed
+ trajectory.
+ The reconstruction method returns a probability distribution representing
+ the likelihood of the animal being at a location of the map.
+ To compare it with the actual location, the reconstructed trajectory, which
+ is in units of grid numbers, is converted back to the actual units of measurmen
+t that was provided during training.
+ This is estimated by finding the location of the center of the grid square
+ in true units that represents the location of the animal.
  
+\end_layout
+
+\begin_layout Standard
+For example, consider a trajectory that varies from 0 to 200cms across both
+ axes (a maze of 
+\begin_inset Formula $200\times200$
+\end_inset
+
+ cm) trained on model with a grid size of 
+\begin_inset Formula $10\times10$
+\end_inset
+
+.
+ This would mean that every square in the discretized map represents a region
+ of 20 cm
+\begin_inset Formula $^{2}$
+\end_inset
+
+.
+ The reconstruction algorithm returns a single address of a grid square
+ that it predicts is the most likely position of the animal.
+ If the estimated postion is (5,5), this is converted to real units (cms),
+ by finding the center of the square.
+ This is calculated by multiplying the grid coordinates by the grid square
+ dimensions, and subtracting half the width and height to get the center
+ of the grid square.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x_{real}=y_{real}=(5*20)-(20*0.5)=90
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore (5,5) in grid cell units can be estimated to (90,90) cms.
+ However this still leaves room for error, as the animal's actual location
+ could be anywhere in the 20 cm
+\begin_inset Formula $^{2}$
+\end_inset
+
+ square centered at (90,90).
+ The algorithm cannot resolve the location of an animal beyond the resolution
+ it has been trained on.
+ For this reason, grid size can be said to directly affect reconstruction
+ accuracy.
+ 
+\end_layout
+
+\begin_layout Standard
+In this analysis, the grid size was varied from 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ upto 
+\begin_inset Formula $32\times32$
+\end_inset
+
+, to study the variance of error.
+ As with other analysis, the coefficient of determination was calculated
+ to represent the accuracy of prediction of the model.
+ Several models with varying grid size were trained and their averaged 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ value over a 10-fold cross-validation test was noted.
 \end_layout
 
 \begin_layout Subsection
@@ -4433,9 +4855,34 @@ Results
 \end_layout
 
 \begin_layout Standard
-No improvement after a certain point.
- Steadies at around gridsize 10.
- This corresponds to columns of width cell size 1.
+As can be seen in the graph, having extremely low grid sizes negatively
+ affects the reconstruction.
+ This can be explained because during the estimation of true units from
+ grid size, having a very low grid resolution results in very few possible
+ locations.
+ In simple terms, having fewer grid squares is a very poor resolution for
+ estimating location.
+ Figure shows that the plot plateaus after a certain point, indicating that
+ increasing grid resolution beyond a certain point does not improve accuracy.
+ The two main important results that can be inferred from this are
+\end_layout
+
+\begin_layout Itemize
+Increasing the grid size does not improve accuracy beyond a certain point.
+ Thus, it is favorable to reconstruct on smaller grid sizes, as there is
+ no loss in accuracy, but much faster computation times.
+\end_layout
+
+\begin_layout Itemize
+On the data used for testing, the most accurate model is the one that is
+ trained on a grid size of 
+\begin_inset Formula $9\times9$
+\end_inset
+
+ figure.
+ This size is ideal for reconstruction as it corresponds to that size where
+ the pathways of the maze can be represented by the width of one grid square
+ (figure).
 \end_layout
 
 \begin_layout Section
@@ -4443,27 +4890,467 @@ Effect of firing rates on accuracy
 \end_layout
 
 \begin_layout Standard
-Two sets of data.
- Defined place fields vs not so much.
- Firing rates vice versa.
- Figure for firing rates.
- Experiment.
+
+\emph on
+What is favorable for a reconstruction: higher firing rates or more defined
+ place fields?
+\end_layout
+
+\begin_layout Standard
+Firing rates encode the most information on stimuli experience by the animal.
+ Place cells that have clearly defined place fields aid in reconstruction,
+ more than cells that dont have a small place fields and fire at several
+ locations.
+ For this analysis, data from two different neural ensembles were obtained
+ from two different animals:
+\end_layout
+
+\begin_layout Itemize
+Animal #1 - Higher firing rates
+\end_layout
+
+\begin_layout Itemize
+Animal #2 - Lower firing rates
+\end_layout
+
+\begin_layout Standard
+Kil
 \end_layout
 
 \begin_layout Subsection
 Results
 \end_layout
 
+\begin_layout Standard
+Intersting plot.
+ Variance of R2.
+\end_layout
+
 \begin_layout Section
-Reconstruction at choice points and junctions
+Non-local representations of position
+\end_layout
+
+\begin_layout Standard
+Errors in a reconstructed trajectory are likely to represent non-local represent
+ations of the position of the animal.
+ Sequential activity representing locations previously visited (replay)
+ and locations not yet visited (preplay) have been observed in the rodent
+ hippocampus.
+ Moreover, preplay occurences have been observed at decision points 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Johnson2007"
+
+\end_inset
+
+.
+ The T-maze task (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Jones-&-Wilson"
+
+\end_inset
+
+) also involves a similar choice turn, and using 
+\noun on
+ReconTool
+\noun default
+, it was possible to identify occurences of non-local representations at
+ junction points.
+ 
+\end_layout
+
+\begin_layout Standard
+The reconstruction was carried out over an entire trajectory recording roughly
+ equal to twenty minutes.
+ The reconstructed trajectory was sampled at the same rate as the initial
+ trajectory, for a strong comparison.
+ An error at a timestep is said to occur when the actual position and the
+ reconstructed position do not coincide, and the degree of error is given
+ by the Euclidean distance of the actual and reconstructed locations on
+ the map.
+ A significant deviation occurs when this Euclidean distance exceeds a certain
+ threshold.
+ Given that the position of the animal is known throughout the trajectory,
+ the locations where significant deviations occur are noted.
+ By varying the threshold for classifying a significant deviation, different
+ maps of occurences of deviations was obtained (Figure).
+\end_layout
+
+\begin_layout Standard
+However, this map does not take into account the number of times the animal
+ visits a location.
+ If we assume a constant rate of error throughout the reconstruction, the
+ locations where most deviations occur according to the unnormalized map,
+ would correspond to the regions where the animal visits the mosts.
+ To eliminate this, the map is normalized by taking into account the spatial
+ occupancy map of the animal, which represents the number of times the animal
+ visits each location.
 \end_layout
 
 \begin_layout Subsection
 Normalization
 \end_layout
 
+\begin_layout Standard
+The map of deviation occurences contains the number of times significant
+ deviations occur at every location.
+ The spatial occupancy contains the number of times the animal visits each
+ location.
+ The map can be normalized by dividing the deviation count by the corresponding
+ spatial occupancy count, for every location on the map.
+ Once normalized, the map represents locations which have a high deviation
+ count to spatial occupancy ratio.
+ As can be seen in figure, this method eliminates the effects of the animal
+ spending large amounts of time when counting the number of deviations.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/100_not_normalized.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Before normalization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/100.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+After normalization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Deviation count normalization with spatial occupancy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Merely counting locations where deviations occur does not actually represent
+ regions of high non-local sequential activity, as it does not take into
+ account the number of times the animal visits it.
+ By normalizing this count with the spatial occupancy of the animal, the
+ map then represents locations with high deviations.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Results
+\end_layout
+
+\begin_layout Standard
+On the reconstructed trajectory, locations where significant deviations
+ occur were noted.
+ The threshold for deviations was also varied to analyze the relationship
+ between location and the degree of deviations.
+ The resulting maps are shown in figure.
+ We can infer that
+\end_layout
+
+\begin_layout Itemize
+Significant deviations occur at the reward sites, indicating the occurences
+ of non-local sequential activity.
+\end_layout
+
+\begin_layout Itemize
+A large number of deviations also occur at the choice point, and are similar
+ to those found by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Johnson2007"
+
+\end_inset
+
+, indicative of mental explorations carried out by the animal before making
+ a decision.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/50.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+>50 cms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/75.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+>75 cms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/100.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+>100 cms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/125.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+>125 cms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/150.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+>150 cms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/Deviations/175.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+>175 cms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Deviation thresholds
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter

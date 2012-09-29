@@ -4927,7 +4927,7 @@ Intersting plot.
 \end_layout
 
 \begin_layout Section
-Non-local representations of location
+Looking for offline sequential activity
 \end_layout
 
 \begin_layout Standard
@@ -5092,15 +5092,6 @@ Deviation count normalization with spatial occupancy
 
 \end_layout
 
-\begin_layout Plain Layout
-Merely counting locations where deviations occur does not actually represent
- regions of high non-local sequential activity, as it does not take into
- account the number of times the animal visits it.
- By normalizing this count with the spatial occupancy of the animal, the
- map then represents locations with high deviations.
- 
-\end_layout
-
 \end_inset
 
 
@@ -5121,20 +5112,7 @@ On the reconstructed trajectory, locations where significant deviations
 
 \begin_layout Itemize
 Significant deviations occur at the reward sites, indicating the occurences
- of non-local sequential activity.
-\end_layout
-
-\begin_layout Itemize
-A large number of deviations also occur at the choice point, and are similar
- to those found by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Johnson2007"
-
-\end_inset
-
-, indicative of mental explorations carried out by the animal before making
- a decision.
+ of replay, 
 \end_layout
 
 \begin_layout Standard
