@@ -3271,6 +3271,13 @@ The firing rates of four place cells are shown here, to illustrate the place
 
 \begin_layout Subsection
 Capturing velocity information
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Capturing-velocity-information"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3804,12 +3811,147 @@ key "Zhang1998"
 \end_inset
 
 .
+ These constraints dampen the probability of sudden 'jumps' occuring within
+ the trajectory.
 \end_layout
 
 \begin_layout Standard
-A probability on the likelihood of a location being a valid estimate is
- calculated, based on the Euclidean distance between the previous location
- and 
+A probability of the current estimated location being a valid estimate is
+ calculated, based on the Euclidean distance between the previous time point's
+ reconstructed location.
+ As with every other calculation involving location within the algorithm,
+ grid location units are used.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+D=Euclidean\, distance(\mathbf{x}_{t-1},\mathbf{x}_{t})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The recorded velocity information contained within the parameter model is
+ used to implement dynamic continuity constraints, that vary from one location
+ to the other, based on the maximum velocity of the animal through that
+ point.
+ The likelihood of the current estimate to be a certain distance away from
+ the previous estimate depends on the animal's velocity in the trained trajector
+y through that point.
+ For information on velocity at a certain location, the maximum number of
+ consecutive timesteps the animal spends at that location on the trained
+ trajectory is used.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P(\mathbf{x}_{t-1}|\mathbf{x}_{t})=\frac{\exp(-D^{2})}{V}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $V=K/maxt(\mathbf{x})$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $maxt$
+\end_inset
+
+ containts the maximum number of timesteps the animal spends consecutively
+ at each location of the map.
+ This value is a measure of velocity at that point, and is contained within
+ the parameter model (this parameter is described in detail in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Capturing-velocity-information"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $K$
+\end_inset
+
+ is a dimensionless constant that denotes the degree to which the probability
+ estimate is to be modified by the continuity constraints.
+ This value 
+\emph on
+slightly
+\emph default
+ affects reconstruction accuracy and depends on the internal factors of
+ the animal; tweaking it may improve accuracy.
+ If not specified by the user, this constant is set at 400.
+ This default value was decided by the evaluation of reconstruction accuracy
+ on data from several sources (analyses described in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Effect-of-continuity"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+The probability distribution obtained from the Bayesian algorithm is now
+ modified with this new likelihood based on distance constraints.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P(\mathbf{x}_{t}|\mathbf{n},\mathbf{x}_{t-1})=k\times P(\mathbf{x}_{t}|\mathbf{n})\times P(\mathbf{x}_{t-1}|\mathbf{x}_{t})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This new distribution, which incorporates both, the estimate based on neural
+ spikes within the time window, and the proximity to the previous estimated,
+ is returned by the algorithm to parent reconstruction function.
+ These constraints can be entirely disabled from the algorithm using a boolean
+ variable, should the user require it.
 \end_layout
 
 \begin_layout Section
@@ -3824,21 +3966,47 @@ name "sec:Visualizing-the-data"
 \end_layout
 
 \begin_layout Standard
-Data visualizations can provide information in a way that is much clearer
- and simpler to understand.
+Data visualizations can represent information in a more natural, simpler
+ to understand, mediums, and may help identify patterns that would not have
+ been possible otherwise.
  In the case of neural spike trains and trajectories, visualizations can
  provide a clear picture of place fields and information about the animal's
  movement and location.
- To aid the user, ReconTool has several visualization functions to display
- such information in a graphical format.
+ To aid the user, 
+\noun on
+ReconTool
+\noun default
+ includes several visualization functions to display such information in
+ a graphical format.
  The parameter model that is trained from the data, contains all these informati
 on about spike firing rates and the position of the animal.
  By simply providing this model, it is possible to visualize firing rates
  of any neuron, in standard units of Hertz, and the spatial occupancy of
- the animal (please see Appendix on how to use these functions).
- Examples of these visualizations can be seen in figures.
- Functions to visualize data post-reconstruction also exist and are described
- in the following sections.
+ the animal.
+ Visualizations such as plotting the estimated and actual trajectories following
+ reconstruction have also been developed.
+ Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Appendix-B:-ReconTool"
+
+\end_inset
+
+ describes the syntax and usage of these functions, while the following
+ sections explain them.
+ Examples of the output of these visualization functions can be seen in
+ throughout this report.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FIGURES
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -3857,17 +4025,17 @@ Place cells tend to fire in specific regions of the map known as place fields.
 total
 \emph default
  firing rate ratio for every location of the map.
- If 
-\begin_inset Formula $S$
+ If matrix 
+\begin_inset Formula $Sl$
 \end_inset
 
- represents the map of most selective neuron for every location,
+ is defined to represent the map of most selective neuron for every location,
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-S(\mathbf{x})=\arg\max_{n}\left(\frac{f_{n}(\mathbf{x})}{\sum_{\mathbf{x}}f_{n}(\mathbf{x})}\right)
+Sl(\mathbf{x})=\arg\max_{n}\left(\frac{f_{n}(\mathbf{x})}{\sum_{\mathbf{x}}f_{n}(\mathbf{x})}\right)
 \]
 
 \end_inset
@@ -3879,7 +4047,7 @@ S(\mathbf{x})=\arg\max_{n}\left(\frac{f_{n}(\mathbf{x})}{\sum_{\mathbf{x}}f_{n}(
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -3900,6 +4068,12 @@ Neuron Selectivity
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+This figure shows the most selective neuron for each locaton, where each
+ color represents a different neuron.
 \end_layout
 
 \end_inset
@@ -3941,9 +4115,10 @@ d trajectory, and observe where deviations occur.
 \end_layout
 
 \begin_layout Standard
-A trajectory drawn in red indicates the actual trajectory of the animal,
- and its movement across the maze, while the blue line represents the reconstruc
-ted trajectory.
+This visualization function draws two sets of plots, one being the actual
+ trajectory, and the other is the reconstructed trajectory.
+ The actual trajectory is drawn in red, and the reconstructed trajectory
+ is drawn in a thinner blue line.
  The X-axis spans across the reconstruction interval and is in default units
  of seconds.
 \end_layout
@@ -3955,10 +4130,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset space ~
-\end_inset
-
-
+\align center
 \begin_inset Float figure
 wide false
 sideways false
@@ -3978,7 +4150,7 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-X coord vs Time
+X vs Time
 \end_layout
 
 \end_inset
@@ -4020,7 +4192,7 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Y-coord vs Time
+Y vs Time
 \end_layout
 
 \end_inset
@@ -4037,12 +4209,29 @@ Y-coord vs Time
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Trajectory plots
+Visualizing trajectories
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Visualizing-trajectories"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\size small
+For the user's convenience, this method generates two plots, one showing
+ the variance of X-coordinate of the trajectory with time, and the other
+ for the Y-coordinate.
+ Red- actual trajectory, Blue- reconstruction.
 \end_layout
 
 \begin_layout Plain Layout
@@ -4060,16 +4249,67 @@ Trajectory animations
 
 \begin_layout Standard
 While plotting trajectories is a useful way to visually study the reconstruction
-, it is not useful to easily evaluate non-local sequential activation of
- place cells, representing different regions in the map.
+, it is not immediately useful to easily evaluate non-local sequential activatio
+n of place cells, representing different regions in the map.
  For this reason, a function to provide an animation of the animal and the
  probability distribution of the estimated position of the animal as given
  by the reconstructed trajectory is provided.
  In this animation, it is possible to see the movement of the animal, whose
- location represented in maroon, overlayed over the probability distribution
+ location represented in dark red, overlayed over the probability distribution
  of the estimated location of the animal at that timestep.
  The speed of the animation can be controlled by the user via functional
  parameters.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/animation_1.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Animating trajectories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\size small
+This figure shows a screen capture during animation of the trajectory in
+ figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Visualizing-trajectories"
+
+\end_inset
+
+.
+ The actual position of the animal is represented by dark red, and the probablil
+ity distribution of the reconstructed trajectory is overlayed at every timestep.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -4806,6 +5046,13 @@ stationary
 
 \begin_layout Section
 Effect of continuity constraints
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Effect-of-continuity"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
