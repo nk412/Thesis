@@ -136,7 +136,7 @@ status open
 
 
 \backslash
-includepdf[pages={1}]{cover.pdf}
+includepdf[pages={1,2}]{cover.pdf}
 \end_layout
 
 \end_inset
@@ -156,9 +156,9 @@ status open
 
 \begin_layout Plain Layout
 
-
+%
 \backslash
-includepdf[pages={2,{}}]{cover.pdf}
+includepdf[pages={2}]{cover.pdf}
 \end_layout
 
 \begin_layout Plain Layout
@@ -2475,8 +2475,6 @@ This chapter describes the implementation, components, and design choices
 ReconTool
 \noun default
 , and is divided into five sections.
- The toolbox is designed as a simple tool for decoding and requires minimal
- user input.
  The first section of this chapter describes the toolbox's general structure
  and interface.
  The core reconstruction algorithm, described in sections 3.2 and 3.3, is
@@ -2520,11 +2518,8 @@ key "Jones2005"
 
 \end_inset
 
-, and are generated using visualization functions developed as part of 
-\noun on
-ReconTool
-\noun default
-, which are described in detail in section 
+, and are generated using visualization functions developed for and available
+ in the toolbox, which are described in detail in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Visualizing-the-data"
@@ -2546,11 +2541,14 @@ Structure of the toolbox
 ReconTool
 \noun default
  is entirely written and developed in MATLAB.
- It follows a modular design, allowing for newer algorithms to be developed
- and modifications to be made and plugged in easily.
- The toolbox provides a simple interface for neural spike train decoding.
- Several visualization functions are also included in order to visually
- analyse the data, which are described in detail in section 
+ It follows a modular design, allowing for newer improved algorithms to
+ be developed or modifications to existing components to be made, and plugged
+ in easily.
+ The toolbox provides a simple interface for neural spike train decoding,
+ with minimal information from the user.
+ As part of the toolbox, several visualization functions have also been
+ developed, for data both before and after reconstruction, which are described
+ in detail in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Visualizing-the-data"
@@ -2558,6 +2556,12 @@ reference "sec:Visualizing-the-data"
 \end_inset
 
 .
+ Besides functions to visually analyse data, 
+\noun on
+ReconTool
+\noun default
+ also contains methods to evaluate reconstruction accuracy, and perform
+ automated cross validation tests.
 \end_layout
 
 \begin_layout Subsection
@@ -2565,24 +2569,36 @@ User interface
 \end_layout
 
 \begin_layout Standard
-The main methods of the toolbox are accessed via the MATLAB command line
- interface.
- All of the methods are implemented as functions, and all objects and necessary
- parameters as passed as arguments to the function.
- Most of the functional parameters can be modified, but take on default
+The methods of the toolbox are accessed through the command line interface.
+ All of the methods are implemented as MATLAB functions, and all objects
+ and necessary parameters as passed as arguments to the function.
+ Documentation on the methods, arguments, and output objects can be accessed
+ through MATLAB's 
+\noun on
+help
+\noun default
+ command.
+ Almost all of the functional parameters can be modified, but take on default
  values if not specified by the user.
- For more information, please refer to the documentation in the appendix.
+ For more information, please refer to the documentation in appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Appendix-B:-ReconTool"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
-Data
+Data types
 \end_layout
 
 \begin_layout Standard
 The two primary data types the toolbox works on is the animal's trajectory
- (positional data) and neural spike trains.
- This data can be obtained from any source, as long as they are accessible
- in MATLAB, and in the simple data formats described below.
+ (position data through time) and neural spike trains.
+ These can be obtained from any source, as long as they are accessible in
+ MATLAB, and confrom to the format specifications described below.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2590,19 +2606,21 @@ Trajectories
 \end_layout
 
 \begin_layout Standard
-Trajectories are defined in the form of a matrix, with T rows and 3 columns,
- where T is the number of timesteps.
- The first column for every row represents the timestamp, and the second
- and third columns denote the X and Y coordinate of the animal at that timestamp
- respectively.
- The time stamps are provided in units of seconds.
- The coordinates of the animal can be specified in any system of units;
- the reconstructed trajectory is calculated in the same units.
- The trajectories can be obtained from any source or device, and thus can
- use any sampling rate.
- This matrix thus represents a continuous trajectory of the animal, and
- encompasses all positional information and derivable information such as
- velocity of the animal at different points.
+Trajectories give the different positions of the animal through time.
+ They are defined in the form of a matrix, with T rows and 3 columns, where
+ T is the number of time steps.
+ The first column for every row represents the time stamp, while the values
+ in the second and third columns represent the X and Y coordinates respectively
+ of the animal at that time stamp.
+ Time stamps are provided in units of seconds.
+ The coordinates of the animal can be specified in any system of units,
+ as the reconstructed trajectory is returned in the same system of units.
+ The trajectories can be obtained from any source, and can have any sampling
+ rate.
+ This trajectory matrix thus represents the continuous variation of the
+ location of the animal with time, and encompasses all positional information
+ and its derivable information such as velocity at different locations in
+ the maze.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2610,13 +2628,15 @@ Spike trains
 \end_layout
 
 \begin_layout Standard
-The spike trains of the neural ensemble is provided in the form of a cell
- array, containing several vectors, where each vector corresponds to a single
+The spike trains of the neural ensemble are provided in the form of a cell
+ array containing several vectors, where each vector corresponds to a single
  neuron of the ensemble.
- Each vector contains all the time stamps in sequential order at which the
- neuron fires.
- An array of these vectors representing all the neurons gives the spike
+ Each vector represents a neuron and contains all the time stamps at which
+ the neuron fires.
+ A cell array of these vectors representing all the neurons gives the spike
  train for the neural ensemble.
+ As with the trajectories, the time stamps at which the neurons fire are
+ provided in units of seconds.
 \end_layout
 
 \begin_layout Subsection
@@ -2675,16 +2695,14 @@ Training a model requires the initial trajectory and the spike trains.
 
 \begin_layout Standard
 There are two main methods for the toolbox: training & reconstruction.
- The training phase involves the algorithm generating a model by learning
- from position data and spike trains recorded from the animal.
- The model encompasses all the information that can be gathered from the
- given data.
+ The first phase involves the training of a parameter model on the trajectory
+ and corresponding spike trains recorded from the animal.
+ The model encompasses all the information that can be learnt from the given
+ data.
  It contains parameters such as firing rate maps and spatial occupancy.
- During the reconstruction phase, this trained model is used along with
- the provided spike train, to decode the corresponding trajectory of the
- animal.
- The toolbox also contains other auxillary functions to visualize data,
- which are described in later sections.
+ During the reconstruction phase, this trained model is used to decode the
+ provided spike train, and thus reconstruct the corresponding trajectory
+ of the animal.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2692,8 +2710,11 @@ reference "fig:Training-and-reconstruction"
 
 \end_inset
 
- provides an illustration describing the working of these two main methods
- and model creation.
+ provides a visual representation of these two methods and model generation.
+ The toolbox also contains other auxillary functions to visualize data,
+ which are described in later sections.
+ Figure provides an illustration describing the working of these two main
+ methods and model creation.
  
 \begin_inset Note Note
 status open
@@ -6701,7 +6722,14 @@ lstparams "basicstyle={\\tiny},breaklines=true,caption={Algorithm},emptylines={*
 \end_layout
 
 \begin_layout Chapter
-Appendix B: ReconTool documentation
+Appendix B: ReconTool documentation 
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Appendix-B:-ReconTool"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
