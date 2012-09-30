@@ -7,6 +7,7 @@
 \pagestyle{scrheadings}
 \pagenumbering{arabic}
 \usepackage{pdfpages}
+\usepackage{amsmath}
 \usepackage[left=1.35in,right=1.9in,top=1in,bottom=1in]{geometry}
 \renewcommand\[{\begin{equation}}
 \renewcommand\]{\end{equation}}
@@ -116,7 +117,8 @@ cfoot{
 \backslash
 tiny 
 \backslash
-sc DRAFT}
+sc Nagarjuna Kumarappan - Machine Learning, Data Mining & High Performance
+ Computing, 2012}
 \end_layout
 
 \end_inset
@@ -249,8 +251,9 @@ Acknowledgments
 \end_layout
 
 \begin_layout Standard
-I would like to thank Rafal Bogacz, who has constantly guided and supported
- me throughout the course of the project.
+I am extremely grateful to Rafal Bogacz, for his constant guidance and support
+ throughout the course of the project.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3699,6 +3702,41 @@ P(\mathbf{x}|\mathbf{n})=\frac{P(\mathbf{x}|\mathbf{n})}{\sum_{\mathbf{x}}P(\mat
 Adding continuity constraints
 \end_layout
 
+\begin_layout Standard
+Decoding a spike train through an interval involves reconstructing the position
+ at every single timestep, to form a trajectory.
+ To reconstruct at a single single time stamp, the Bayesian inference algorithm
+ works by considering all the spikes that occur within the time window,
+ along with positional probability of the animal as well.
+ The algorithm does not use any information from a previous estimate in
+ the trajectory, but only decodes using local information available at that
+ time step.
+ Though a generally high level of accuracy is achieved, there are errors
+ in the estimated trajectory sometimes due to noise.
+ These errors can be seen in trajectory plots in the form of spikes that
+ occur in between an otherwise good region of reconstructed trajectory.
+ These errors can be reduced if constraints on the distance between the
+ current and previous estimated location are established.
+\end_layout
+
+\begin_layout Standard
+This can be done by adding another correctional step after finding the probabili
+ty distribution (the likelihood of the animal being at a location).
+ Normally, the location with the highest probability is chosen as the point,
+ and is included into the reconstructed trajectory.
+ For every location in the distribution, the probability is amplified by
+ its proximity to the previous estimated point in the trajectory.
+ This essentially reduces the probability of estimates located far away
+ from the previous estimate.
+ The animal cannot suddenly move to a distant point in the maze within a
+ single timestep.
+ This correction step, can be further improved by including the varying
+ velocity of the animal into the constraints.
+ As described in the previous chapter, the parameter model also captures
+ velocity information of the animal.
+ 
+\end_layout
+
 \begin_layout Section
 Visualizing the data
 \begin_inset CommandInset label
@@ -4010,8 +4048,7 @@ The null model serves the purpose of a benchmark to evaluate the performance
  animal is most likely to be in, based on input positional data, constantly
  for all points in the interval.
  It does not use any spike data in any way to make its prediction.
- The reconstructed position of the null model can be described by the following
- equation.
+ The reconstructed position of the null model can be described by
 \end_layout
 
 \begin_layout Standard
@@ -4697,38 +4734,181 @@ Effect of continuity constraints
 \end_layout
 
 \begin_layout Standard
-Decoding a spike train through an interval involves reconstructing the position
- at every single timestep, to form a trajectory.
- To reconstruct at a single single time stamp, the Bayesian inference algorithm
- works by considering all the spikes that occur within the time window,
- along with positional probability of the animal as well.
- The algorithm does not use any information from a previous estimate in
- the trajectory, but only decodes using local information available at that
- time step.
- Though a generally high level of accuracy is achieved, there are errors
- in the estimated trajectory sometimes due to noise.
- These errors can be seen in trajectory plots in the form of spikes that
- occur in between an otherwise good region of reconstructed trajectory.
- These errors can be reduced if constraints on the distance between the
- current and previous estimated location are established.
+Reconstructing a trajectory involves estimating the position of the animal
+ at every single time step contained within the interval.
+ Each point is estimated primarily based on the spiking activity of the
+ neurons within the time window.
+ By establishing constraints on the Euclidean distance between the current
+ location estimate and the previous timestep's location estimate, it is
+ possible to improve accuracy by eliminating random erroneous devaitions.
 \end_layout
 
 \begin_layout Standard
-This can be done by adding another correctional step after finding the probabili
-ty distribution (the likelihood of the animal being at a location).
- Normally, the location with the highest probability is chosen as the point,
- and is included into the reconstructed trajectory.
- For every location in the distribution, the probability is amplified by
- its proximity to the previous estimated point in the trajectory.
- This essentially reduces the probability of estimates located far away
- from the previous estimate.
- The animal cannot suddenly move to a distant point in the maze within a
- single timestep.
- This correction step, can be further improved by including the varying
- velocity of the animal into the constraints.
- As described in the previous chapter, the parameter model also captures
- velocity information of the animal.
- 
+To study the effect of 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/recon/1step_X.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+1-step, X-coordinate
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/recon/1step_Y.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+1-step, Y-coordinate
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/recon/2step_X.png
+	scale 70
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+2-step, X-coordinate
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Images/recon/2step_Y.png
+	scale 70
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+2-step, Y-coordinate
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Improving prediction with continuity constaints
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Improving-prediction"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -4736,10 +4916,14 @@ Results
 \end_layout
 
 \begin_layout Standard
-Figure.
- Max>Average>Min>None.
- Zhang.
- Algorithm modification.
+As shown by the results in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Improving-prediction"
+
+\end_inset
+
+, 
 \end_layout
 
 \begin_layout Section

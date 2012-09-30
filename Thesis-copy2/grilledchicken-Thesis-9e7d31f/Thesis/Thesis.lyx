@@ -4701,7 +4701,9 @@ Reconstructing a trajectory involves estimating the position of the animal
  at every single time step contained within the interval.
  Each point is estimated primarily based on the spiking activity of the
  neurons within the time window.
- By establishing 
+ By establishing constraints on the Euclidean distance between the current
+ location estimate and the previous timestep's location estimate, it is
+ possible to 
 \end_layout
 
 \begin_layout Standard

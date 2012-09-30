@@ -1,0 +1,187 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass classicthesis
+\use_default_options true
+\maintain_unincluded_children false
+\language american
+\language_package default
+\inputencoding default
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_numerical
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter*
+Executive summary
+\end_layout
+
+\begin_layout Standard
+Among the many functions of the hippocampus in the brain, a major role is
+ the consolidation of new memories and it is also responsible for spatial
+ memory and navigation.
+ Certain cells in the hippocampus are responsible for encoding the location
+ of the animal in the environment.
+ These ‘place’ cells are active only in certain specific areas of the map,
+ known as ‘place’ fields, and by analysing the activity of an ensemble of
+ place cells, it is possible to reconstruct the location of the animal.
+ 
+\end_layout
+
+\begin_layout Standard
+Reconstruction, or decoding, is an inverse problem, where physical variables
+ experienced by the animal are calculated based on neural activity.
+ Reconstruction of location will provide an insight into how the location
+ of the animal is encoded within the brain, and how this affects the decision
+ making process.
+ It has been known that the hippocampus aids the prefrontal cortex to carry
+ out decisions, but observing sequential activity in the brain through reconstru
+ction will give a better picture as to how it evaluates actions of consequences.
+ There are no freely available tools that allow users to analyse and allow
+ for reconstruction of physical variables, and this project aims to make
+ a toolbox that can enable users to decode neural data easily.
+ 
+\end_layout
+
+\begin_layout Standard
+A part of this project is research into the different methods of reconstruction
+ that is available, and implementation of methods into a usable toolkit.
+ The toolkit should be modifiable and compatible with other kinds of data,
+ and should ideally also allow for reconstruction of other physical variables,
+ and not just limited to location.
+ Thus, the implementation is not for a one-time use, but rather a multipurpose
+ adjustable tool that can be used by neuroscientists to decode many kinds
+ of physical variables through a user-friendly graphical interface.
+ It has been shown (Johnson & Redish, 2007) that rats undertaking decisions
+ in a maze tend to slow down before the branch point, and neural data shows
+ that place cells encoding locations sweep forward, indicating that the
+ animal predicts and imagines itself at paths it has not yet explored.
+ This interesting observation suggests how the animal evaluates its actions
+ and decisions before a choice point.
+\end_layout
+
+\begin_layout Chapter
+Introduction
+\end_layout
+
+\begin_layout Section
+
+\lang english
+Background
+\end_layout
+
+\begin_layout Subsection
+
+\lang english
+Place fields and place cells
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+The hippocampus of the brain is responsible for several functions including
+ memory consolidation, navigation, location and spatial awareness.
+ Certain regions of the hippocampus consists of specialized cells known
+ as pyramidal cells, some of which act as place cells.
+ Place cells are cells that exhibit activity only when the animal passes
+ through specific locations in its environment, locations known as place
+ fields.
+ Place cells are usually inactive outside these place fields, and experiments
+ have shown that some are activated only when visited from certain directions,
+ and some are more active in mazes with pathways and other physical constraints
+ such as spiral pathways, than in free roaming arenas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Markus1995"
+
+\end_inset
+
+.
+ These place cells are not independent of each other, and sometimes fire
+ simultaneous with other place cells, and thus more information about the
+ location of the animal can be gleaned from an ensemble of neurons than
+ can be from individual cells 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Harris2003,Brown1998"
+
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+Not sure about Harris2003.
+ Check again.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "C:/Users/arjun/Documents/Course Work/Thesis/ClassicThesis/ResearchReviewII/references7"
+options "plainnat"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
