@@ -4693,7 +4693,15 @@ stationary
 \end_layout
 
 \begin_layout Section
-2-step reconstruction
+Effect of continuity constraints
+\end_layout
+
+\begin_layout Standard
+Reconstructing a trajectory involves estimating the position of the animal
+ at every single time step contained within the interval.
+ Each point is estimated primarily based on the spiking activity of the
+ neurons within the time window.
+ By establishing 
 \end_layout
 
 \begin_layout Standard
@@ -4756,7 +4764,11 @@ name "sec:Effect-of-grid"
 \begin_layout Standard
 
 \emph on
-What is the best grid size to minimize error during reconstruction?
+What grid size produces the least error during reconstruction?
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4765,13 +4777,13 @@ The grid size determines the size of the map to discretize the position
  This directly affects how the firings rates are calculated, as the size
  of a location changes.
  By having a large grid size, the number of locations that are mapped increases,
- and this implies a higher resolution of the trajectory of the animal.
+ and this denotes a higher resolution in the trajectory of the animal.
  However, this also introduces larger uncertainties in the reconstructed
- trajectory.
+ trajectory, and makes it more prone to smaller deviations.
  The reconstruction method returns a probability distribution representing
  the likelihood of the animal being at a location of the map.
  To compare it with the actual location, the reconstructed trajectory, which
- is in units of grid numbers, is converted back to the actual units of measurmen
+ is in units of grid squares, is converted back to the actual units of measurmen
 t that was provided during training.
  This is estimated by finding the location of the center of the grid square
  in true units that represents the location of the animal.
@@ -4802,13 +4814,13 @@ For example, consider a trajectory that varies from 0 to 200cms across both
  This is calculated by multiplying the grid coordinates by the grid square
  dimensions, and subtracting half the width and height to get the center
  of the grid square.
- 
+ In this example,
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-x_{real}=y_{real}=(5*20)-(20*0.5)=90
+x_{real}=y_{real}=(5\times20cm)-(\frac{20cm}{2})=90cm
 \]
 
 \end_inset
@@ -4817,17 +4829,16 @@ x_{real}=y_{real}=(5*20)-(20*0.5)=90
 \end_layout
 
 \begin_layout Standard
-Therefore (5,5) in grid cell units can be estimated to (90,90) cms.
- However this still leaves room for error, as the animal's actual location
- could be anywhere in the 20 cm
+Therefore (5,5) in grid cell units can be converted to (90,90) cms.
+ However this still leaves a signficant room for error, as the animal's
+ actual location could be anywhere in the 20 cm
 \begin_inset Formula $^{2}$
 \end_inset
 
  square centered at (90,90).
  The algorithm cannot resolve the location of an animal beyond the resolution
  it has been trained on.
- For this reason, grid size can be said to directly affect reconstruction
- accuracy.
+ Thus, grid size directly affects reconstruction accuracy.
  
 \end_layout
 
@@ -4847,7 +4858,49 @@ In this analysis, the grid size was varied from
 \begin_inset Formula $R^{2}$
 \end_inset
 
- value over a 10-fold cross-validation test was noted.
+ value over a 10-fold cross-validation test was observed.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/grid_lovejoy.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Variance of accuracy with grid size
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -4892,29 +4945,130 @@ Effect of firing rates on accuracy
 \begin_layout Standard
 
 \emph on
-What is favorable for a reconstruction: higher firing rates or more defined
- place fields?
+How important are firing rates of place cells in encoding information about
+ the position of the animal?
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Firing rates encode the most information on stimuli experience by the animal.
- Place cells that have clearly defined place fields aid in reconstruction,
- more than cells that dont have a small place fields and fire at several
- locations.
- For this analysis, data from two different neural ensembles were obtained
- from two different animals:
-\end_layout
+The firing rate of a neuron encodes most of the information of stimuli.
+ In the context of place cells, the firing rate of the cells encode information
+ on the locational representation of the animal in the hippocampus.
+ For this analysis, data from two animals were taken, both navigating the
+ same T-maze task, but one whose recorded neurons show a considerably lesser
+ firing activity on average across the ensemble.
+ The mean firing rate shown in the table below, was calculated by finding
+ the mean of the maximum firing rates of each neuron across all locations
+ on the map.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Frates-AB"
 
-\begin_layout Itemize
-Animal #1 - Higher firing rates
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-Animal #2 - Lower firing rates
+
 \end_layout
 
 \begin_layout Standard
-Kil
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Animal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mean firing rate
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $9.6Hz$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $19.7Hz$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Reconstruction over the entire interval was carried out and the accuracy
+ of the model was determined.
+ In order to see the variance of accuracy over several trials, the test
+ was repeated by varying grid sizes from 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ to 
+\begin_inset Formula $32\times32$
+\end_inset
+
+, similar to the evaluation carried out in the previous analysis.
+ This method of evaluating accuracy will indicate the highest accuracy possible,
+ for the given spike train, by varying the grid size.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -4922,8 +5076,141 @@ Results
 \end_layout
 
 \begin_layout Standard
-Intersting plot.
- Variance of R2.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/frate_diffs.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Mean firing rate for each neuron
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Frates-AB"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/R2_firingrates_gridsize.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Variance of accuracy with grid size
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:R2-AB"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Accuracy of reconstruction with different firing rates
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It can be seen from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:R2-AB"
+
+\end_inset
+
+, that the accuracy of reconstruction on data from animal B is consistently
+ and considerably higher than that of animal A.
+ Also, as shown in the previous section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Effect-of-grid"
+
+\end_inset
+
+, there is no improvement in either animal's model accuracy after a certain
+ grid size.
+ The main result gathered here is that
+\end_layout
+
+\begin_layout Itemize
+Place cells with higher firing rates encode more spatial information, and
+ result in models with higher accuracy during reconstruction.
 \end_layout
 
 \begin_layout Section
@@ -5647,9 +5934,14 @@ name "chap:Discussion"
 \end_layout
 
 \begin_layout Standard
-This chapter explores the design choices made during the development of
- the toolbox, and the results and inferences of the different analyses carried
- out using it.
+This chapter explores the decision choices during the development of the
+ toolbox, and also provides a discussion on the degree to which the initially
+ set goals were met.
+ The results and the inferences of the analyses carried out using 
+\noun on
+ReconTool
+\noun default
+ are also discussed.
 \end_layout
 
 \begin_layout Section
@@ -5657,8 +5949,8 @@ Toolbox framework
 \end_layout
 
 \begin_layout Standard
-The primary aim of this project is to create a toolbox to decode neural
- spikes and reconstruct trajectories.
+The primary aim of this project was to create a toolbox to decode neural
+ activity and reconstruct trajectories.
  There are no toolboxes available freely for neuroscientists to decode neural
  correlates, and 
 \noun on
@@ -5669,20 +5961,20 @@ fills that gap.
 
 \begin_layout Standard
 MATLAB was chosen for the development of the toolbox for easy use and compatibil
-ity with other neural analysis toolboxes such as MQL 
+ity with other toolboxes for neural analyses such as MQL 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Jahans-Price2010"
 
 \end_inset
 
-, and due to the availability of built-in statistical analysis and graphical
- plotting tools in MATLAB.
+, and also due to the availability of built-in statistical analysis and
+ graphical plotting tools.
 \end_layout
 
 \begin_layout Standard
-One of the main concerns during the development of the toolbox was to make
- it extremely flexible for modifications in the future.
+One of the main objectives during the development of the toolbox was to
+ make it extremely flexible for modifications in the future.
  There are several neural decoding techniques that exist, and the implemented
  Bayesian inference is just one of them.
  Methods such as basis pattern matching, though they use completely different
@@ -5914,10 +6206,10 @@ not
  to recreate trajectories with minimal error, but instead reproduce internal
  representations of the position of the animal as experienced by the animal
  itself, deviations in reconstruction and actual trajectory are expected,
- as they may represent offline sequential activity corresponding to places
+ as they potentially represent sequential activity corresponding to places
  the animal has previous visited or yet to visit.
- Thus, the reconstruction algorithm was succesfully implemented with a high
- level of accuracy.
+ As shown by these results, the reconstruction algorithm was succesfully
+ implemented with a high level of accuracy.
 \end_layout
 
 \begin_layout Subsection
@@ -5925,19 +6217,105 @@ Factors affecting accuracy
 \end_layout
 
 \begin_layout Standard
+As reconstruction on different data sets, along with varying parameters,
+ yielded significant variations in accuracy, the factors affecting it were
+ studied.
+ The effect of grid size and firing rates was examined.
+\end_layout
 
+\begin_layout Standard
+Grid size gives the resolution of the map on which the model is trained
+ and reconstruction is carried out, and hence directly affects the accuracy.
+ As expected, it was found that having extremely low grid sizes leads to
+ poor accuracy in reconstruction, because of the low resolution of the mapping
+ subsequent errors in converting to real units.
+ Interestingly however, it was found that increasing grid size beyond a
+ certain point does 
+\noun on
+not
+\noun default
+ improve (or degrade) accuracy (Figure).
+ This result indicates that carrying out reconstructions on larger grid
+ sizes has no benefit but only causes the computation time to exponentially
+ worsen.
+\end_layout
+
+\begin_layout Standard
+For studying the effect of rate of neural spikes on reconstruction, the
+ accuracy was evaluated on two different sets of data, one with neurons
+ with generally high firing rates, and another with neurons with lower firing
+ rates.
+ The results indicate that higher firing rates considerably improve reconstructi
+on accuracy, and this supports the idea that most information about the
+ stimulus is encoded within the firing rate of the neurons (Rate coding).
+ 
+\end_layout
+
+\begin_layout Section
+Non-local representations
+\end_layout
+
+\begin_layout Standard
+Errors in reconstruction of the position may arise either due to the algorithm
+ and insufficient information contained within the spikes, or due to occurences
+ non-local representations of position of the animal.
+ The two specific types of OSA that are of interest are representations
+ of past locations (replay), and representations of future locations (preplay).
+\end_layout
+
+\begin_layout Standard
+Mapping out locations of the animal where non-local sequences were observed
+ reveals that significant deviations occur at the choice point, and at the
+ reward sites.
+ Further analysing the occurences of deviations, it was found that mostly
+ all deviations occuring near the decision point occur during the choice
+ trial, and this strongly indicates preplay of future locations to aid the
+ animal in decision making.
+ 
 \end_layout
 
 \begin_layout Section
 Future work
 \end_layout
 
+\begin_layout Standard
+This project establishes a toolbox for reconstructing trajectories based
+ on neural spikes, and provides a flexible framework for modifications.
+ 
+\end_layout
+
 \begin_layout Subsection
 Expanding the toolbox
 \end_layout
 
+\begin_layout Standard
+The current implementation of the toolbox uses only Bayesian inference for
+ decoding.
+ The toolbox can be expanded to incorporate other algorithms, such as basis
+ functions, and pattern matching, providing the user with options to choose
+ a decoding algorithm.
+ Implementing multiple algorithms also provides a way for smoothing out
+ errors by comparing the reconstruction results of different algorithms.
+\end_layout
+
 \begin_layout Subsection
 Further analyses
+\end_layout
+
+\begin_layout Standard
+In this project, 
+\noun on
+ReconTool
+\noun default
+ has been used succesfully to identify high amounts of non-local place cell
+ activation at reward sites, suggesting replay of recently experienced memories,
+ and at the junction points as the animal approaches it, suggesting preplay
+ of place cells representing future locations ahead of the animal.
+ While the occurences of deviations have been identified, future analysis
+ can be carried out to investigate the actual locations represented by these
+ deviations, as this would provide further insight into the role of the
+ hippocampus in memory consolidation and mental exploration of novel spaces.
+ 
 \end_layout
 
 \begin_layout Chapter
@@ -5945,64 +6323,64 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Just as neural ensembles sweep backwards during sleep, replaying past experience
-s as a way of consolidating memory, sequential activity has been observe
- red ahead of the animal as well.
- This preplay of place cells before actually navigating the trajectories
- has been observed in both linear novel tracks with forced turns 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Dragoi2011"
-
+A flexible toolbox, 
+\noun on
+ReconTool
+\noun default
+, was developed for neural spike decoding and trajectory reconstruction.
+ The algorithm implemented uses Bayesian inference to estimate the position
+ of the animal, and was found to have a high level of accuracy.
+ The algorithm was heavily optimized to improve the speed of reconstruction.
+ The toolbox also contains several functions to visualize data, and methods
+ to analyze reconstruction errors and perform cross-validation tests.
+ 
+\begin_inset Newline newline
 \end_inset
 
-, and also in lap-based decision based tasks 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Johnson2007"
 
-\end_inset
-
-.
- Preplay seems to indicate that the hippocampus plays a major role in predicting
- outcomes by mentally exploring different pathways and options, before the
- decision making process.
- To study these, a good reconstruction system will be required.
 \end_layout
 
 \begin_layout Standard
-Any reconstruction method cannot be used, as the timescales of sequential
- activity in the brain is greatly compressed.
- Because of which, Bayesian classifiers working at fast time scales prove
- most useful.
- The task described in 
+Data recorded from rats navigating the T-maze decision task 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Jones2005"
 
 \end_inset
 
- was actually designed to study the neural interactions between the hippocampus
- and prefrontal cortex, but uses a very similar setup to the one mentioned
- in the Johnson and Redish experiment.
- It consists of a T-junction, and has to decide on an action based on a
- cue, which in this case was the direction of the starting position.
- It is extremely probable that the existence of preplay will be found in
- the neural data recorded for this task as well.
+ was analysed using 
+\noun on
+ReconTool
+\noun default
+.
+ The reconstruction accuracy along with the parameters that affect it, and
+ errors in reconstruction were analysed.
+ 
 \end_layout
 
-\begin_layout Standard
-Despite the existence of literature on different methods and its implementations
-, there have been no easy to use and free tools to allow non-technical users
- to study neural data for analysis, because of which a lot of potential
- areas have yet to be explored.
- By developing a toolkit that can be easily modified for different algorithms
- and methods, we can enable common users to easily and quickly use reconstructio
-n methods to search for patterns and other experiments.
+\begin_layout Itemize
+Increasing the grid size while training models improves the accuracy of
+ reconstruction only up to a certain point.
 \end_layout
 
-\begin_layout Chapter
-Appendix
+\begin_layout Itemize
+Place cells with higher firing rates encode more spatial information, and
+ result in models with higher reconstruction accuracy.
+\end_layout
+
+\begin_layout Itemize
+Significant deviations between actual and reconstructed position occur at
+ reward sites when the animal is stationary, suggesting the reactivation
+ (replay) of place cells corresponding to previously visited locations in
+ the maze.
+\end_layout
+
+\begin_layout Itemize
+Almost all of the significant deviations at the choice point were found
+ to occur as the animal approached it to make a choice turn, and not when
+ moving away from it, indicating that these non-local sequential activity
+ represent future locations ahead of the choice point (preplay) to evaluate
+ consequences of the choice before making a turn.
 \end_layout
 
 \begin_layout Standard
@@ -6015,6 +6393,48 @@ options "harvard"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Chapter
+\start_of_appendix
+Appendix A: Source code
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "Code/training.m"
+lstparams "basicstyle={\\tiny},breaklines=true,caption={Training Method},emptylines={*0},frame=tb,language=Matlab,title={Training}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "Code/reconstruction.m"
+lstparams "basicstyle={\\tiny},breaklines=true,caption={Reconstruction},emptylines={*0},frame=tb,language=Matlab,title={Reconstruction}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "Code/bayes_algorithm.m"
+lstparams "basicstyle={\\tiny},breaklines=true,caption={Algorithm},emptylines={*0},frame=tb,language=Matlab,title={Algorithm}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Appendix B: ReconTool documentation
 \end_layout
 
 \end_body
