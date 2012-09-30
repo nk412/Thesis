@@ -7,12 +7,12 @@
 \pagestyle{scrheadings}
 \pagenumbering{arabic}
 \usepackage{pdfpages}
-\usepackage{amsmath}
+%\usepackage{amsmath}
 \usepackage[left=1.35in,right=1.9in,top=1in,bottom=1in]{geometry}
 \renewcommand\[{\begin{equation}}
 \renewcommand\]{\end{equation}}
 \end_preamble
-\options fontsize=11pt,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
+\options twoside,fontsize=11pt,paper=a4,openright,titlepage,numbers=noenddot,headinclude=true,BCOR=5mm,footinclude=false,cleardoublepage=empty
 \use_default_options false
 \begin_modules
 customHeadersFooters
@@ -117,7 +117,7 @@ cfoot{
 \backslash
 tiny 
 \backslash
-sc Nagarjuna Kumarappan - Machine Learning, Data Mining & High Performance
+sc Nagarjuna Kumarappan - Machine Learning, Data Mining and High Performance
  Computing, 2012}
 \end_layout
 
@@ -3295,7 +3295,7 @@ status open
 \begin_inset Graphics
 	filename Images/vel1.png
 	lyxscale 40
-	scale 50
+	scale 70
 
 \end_inset
 
@@ -4737,21 +4737,41 @@ Effect of continuity constraints
 Reconstructing a trajectory involves estimating the position of the animal
  at every single time step contained within the interval.
  Each point is estimated primarily based on the spiking activity of the
- neurons within the time window.
+ neurons within the time window, and does not use any information from any
+ other points in the interval.
  By establishing constraints on the Euclidean distance between the current
  location estimate and the previous timestep's location estimate, it is
- possible to improve accuracy by eliminating random erroneous devaitions.
+ possible to improve accuracy by eliminating random erroneous deviations
+ in reconstructed trajectory.
 \end_layout
 
 \begin_layout Standard
-To study the effect of 
+To study the effect of continuity constraints on accuracy, reconstruction
+ was carried out twice on a small interval, on a 
+\begin_inset Formula $16\times16$
+\end_inset
+
+ bin resolution, once with no constraints on continuity (1-step reconstruction),
+ and the second time with a 2D-Gaussian based Euclidean distance constraint
+ (2-step).
+ The continuity constraint is dynamic; depending on the maximum recorded
+ velocity of the animal at that location, larger deviations are either increase
+ the likelihood of the current estimate or dampen it.
+ The exact implementation of the 2-step constraint can be found in section.
+ The single step reconstruction is carried out solely on information gained
+ from the neural spikes, whereas the second step uses the distance to the
+ previous location estimate to alter the current estimate.
+\end_layout
+
+\begin_layout Subsection
+Results
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -4782,10 +4802,6 @@ status collapsed
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -4813,10 +4829,6 @@ status collapsed
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -4902,28 +4914,107 @@ name "fig:Improving-prediction"
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Reconstruction
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Coefficient of determination, 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1-step
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.71
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2-step
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.84
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Subsection
-Results
-\end_layout
-
 \begin_layout Standard
-As shown by the results in figure 
+As shown by the reconstruction results in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Improving-prediction"
 
 \end_inset
 
-, 
+, there are considerably lesser deviations in the 2-step reconstruction.
+ It is interesting to note that despite many erroneous deviations being
+ eliminated as a result of the 2-step process, there are certain anomalous
+ deviations introduced into the trajectory.
+ These deviations are a result of the implemented constraint filtering accurate
+ estimates of the position.
+ However, these anomalies are very few in comparison with the number of
+ eliminated deviations, and as the above table shows, the reconstruction
+ accuracy improves considerably by implementing continuity constraints.
+ 
 \end_layout
 
 \begin_layout Section

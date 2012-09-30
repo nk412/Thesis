@@ -136,7 +136,7 @@ status open
 
 
 \backslash
-includepdf[pages={1,2}]{cover.pdf}
+includepdf[pages={1}]{cover.pdf}
 \end_layout
 
 \end_inset
@@ -156,9 +156,9 @@ status open
 
 \begin_layout Plain Layout
 
-%
+
 \backslash
-includepdf[pages={2}]{cover.pdf}
+includepdf[pages={2,{}}]{cover.pdf}
 \end_layout
 
 \begin_layout Plain Layout
