@@ -201,63 +201,138 @@ called
 \noun on
 ReconTool
 \noun default
- (Reconstruction Toolbox).
+.
  It makes use of a flexible machine learning algorithm to learn from an
  animal's neural activity and position during spatial tasks in a maze, to
- reconstruct the trajectory of the animal given novel spike trains.
+ reconstruct the trajectory of the animal on novel spike trains.
  Considering the relatively high computational and time complexity of decoding
- algorithms in general, the toolbox aims to provide a fast and simple way
- for training and reconstruction on any type of data set.
+ algorithms in general, the toolbox aims to provide a fast way for training
+ and reconstruction on data from different sources.
  The software is primarily developed for neuroscientists as there are no
- freely available tools for decoding neural correlates.
- The reconstruction algorithm uses Bayesian inference, as described by 
+ freely available tools for decoding neural correlates of position.
+ The reconstruction algorithm uses Bayesian inference, and the accuracy
+ of reconstruction was studied along with the parameters that affect it.
+\end_layout
+
+\begin_layout Standard
+The second component of the project is the analysis of data recorded from
+ rats navigating a spatial task involving decision making.
+ We looked for episodes where neural activity indicated different locations
+ than the actual location of the animal, believed to reflect planning and
+ consolidation of memory.
+ This analysis would not have been possible without 
+\noun on
+ReconTool
+\noun default
+.
+ Though the reconstruction algorithm was found to have a high level of accuracy,
+ deviations between reconstructed positions and actual positions were found
+ primarily to occur at the reward points, and when the animal slows down
+ at junctions with a choice turn, indicating the occurrences of non-local
+ representations of past or future experiences yet to be experienced by
+ the animal.
+\end_layout
+
+\begin_layout Itemize
+A new machine-learning software toolbox, 
+\noun on
+ReconTool, 
+\noun default
+was developed, for decoding neural spike trains and reconstructing trajectories,
+ using a probabilistic Bayesian algorithm, as described by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Zhang1998"
 
 \end_inset
 
-.
- Several visualization and analysis methods were also developed, for data
- both before and after reconstruction.
- 
-\noun on
-ReconTool 
-\noun default
-can be downloaded online with detailed documentation from http://www.cs.bris.ac.uk
+, and was found to have degree of accuracy.
 \end_layout
 
 \begin_layout Standard
-The second component of the project is the analysis of data recorded from
- rats navigating a spatial task involving decision making.
- This analysis would not have been possible without 
+Data recorded from rats navigating the 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Jones2005"
+
+\end_inset
+
+ T-maze task was analyzed using 
 \noun on
 ReconTool
 \noun default
-.
- Several models were trained on the data, to study the accuracy of reconstructio
-n and also the parameters that affect it.
- Though the reconstruction algorithm was found to have a high level of accuracy,
- deviations between reconstructed positions and actual positions were found
- primarily to occur at the reward points, and when the animal slows down
- at junctions with a choice turn.
- These results indicate non-local sequential activity occurs when the animal
- is stationary or slow moving, suggesting the occurrences of preplay and
- replay at these points.
+, and led to the following key findings
 \end_layout
 
-\begin_layout Chapter*
-Acknowledgments
+\begin_layout Itemize
+Analysis of the effect firing rates on accuracy showed that place cells
+ with higher firing rates encode more spatial information.
 \end_layout
 
-\begin_layout Standard
-I am extremely grateful to Rafal Bogacz, for his constant guidance and support
- throughout the course of the project.
+\begin_layout Itemize
+Significant deviations between actual position and internal representations
+ of position were observed when the animal is stationary, indicating the
+ occurrences non-local representations corresponding to past experiences,
+ as a way of memory consolidation.
+\end_layout
+
+\begin_layout Itemize
+A large number of deviations in actual and internal representations were
+ observed as the animal 
+\emph on
+approached
+\emph default
+ a choice turn, indicating the occurrences of sequential activity representing
+ future locations as a way of evaluating consequences of decisions.
  
 \end_layout
 
+\begin_layout Chapter*
+Acknowledgements
+\end_layout
+
 \begin_layout Standard
-And today
+I am extremely grateful to Dr Rafal Bogacz, for his constant guidance and
+ support, throughout the course of this project.
+ This thesis would not be what it is without his help and encouragement.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Sincere thanks to Dr Matt Jones, for his invaluable help and advice, and
+ for providing me a peek into the fascinating world of neuroscience.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Thanks to Thomas Jahans-Price and Nadine Becker, for their timely help and
+ advice, during the development of the toolbox.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+I would also like to thank Katherine Ross, for helping me through the harder
+ days, and for helping make the last year one of my most memorable.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Finally, I would like to express my gratitude to my dear parents, who, despite
+ being so far away, have constantly provided me with support and encouragement,
+ without which none of this would have been possible.
 \end_layout
 
 \begin_layout Standard
@@ -319,8 +394,8 @@ Background
 \end_layout
 
 \begin_layout Standard
-The hippocampus of the brain is responsible for several functions including
- memory consolidation, navigation, and location and spatial awareness.
+The hippocampus is a part of the brain responsible for several functions
+ including memory encoding, consolidation, and spatial information processing.
  Certain regions of the hippocampus consist of specialized cells known as
  pyramidal cells, which are believed to play a role in cognitive ability.
  Some of the pyramidal cells of the hippocampus act as 
@@ -338,7 +413,8 @@ Place cells and place fields
 Place cells are neurons that exhibit activity when the animal is in certain
  specific locations in its environment, and seldom activate when anywhere
  else.
- These regions at which place cells fire are known as 
+ These regions in the environment at which place cells fire are known as
+ 
 \emph on
 place fields
 \emph default
@@ -575,7 +651,7 @@ reference "chap:Discussion"
 
 \end_inset
 
-).
+), followed by a conclusion in chapter 6.
 \end_layout
 
 \begin_layout Chapter
@@ -602,7 +678,7 @@ Sequential activity of neurons
 \end_layout
 
 \begin_layout Standard
-The hippocampus is responsible for spatial and location awareness, among
+The hippocampus is responsible for spatial information processing, among
  other functions.
  There exist specialized hippocampal cells that fire only when the animal
  visits specific regions in the environment.
@@ -997,8 +1073,8 @@ key "Johnson2007"
 
  used a Bayesian reconstruction method.
  The reconstruction algorithm was suitably modified to allow for faster
- timescales, as sequential activity are compressed by a factor of up to
- 7 times in the brain 
+ timescales, as sequential activity can be compressed by a factor of up
+ to 7 times in the brain 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Euston2007"
@@ -1009,21 +1085,28 @@ key "Euston2007"
  By decoding the location encoded by the hippocampal place cells, it is
  possible to determine the location as perceived by the animal.
  This allows for observations of both local and non-local representations
- of the rodent.
+ of the position of the rodent.
  The choice point was defined as a small rectangular area just before the
  T-junction.
  The animal is said to enter the choice point as it enters the box, and
- exits as it leaves through the north after making a decision.
+ exits as it leaves the box after making a decision.
  Reconstruction yielded interesting results at the choice points.
  At these critical choice points, forward sweeps of neural ensembles were
  observed.
  If the reconstructed location and the actual position of the animal deviated
  by a predetermined amount, it was classified as a non-local activation.
- At the choice points, the place cells tended to fire ahead of the animal,
- rather than behind (backward sweeps indicate past experience, or replay).
- It should be noted that, there were certain non-local sequence reconstructions
+ At the choice points, the place cells tended to represent locations of
+ the animal, rather than behind (backward sweeps indicate past experience,
+ or replay).
+ 
+\end_layout
+
+\begin_layout Standard
+It should be noted that, there were certain non-local sequence reconstructions
  that did not fit in with the environment, and were subsequently eliminated
  from the data set and from further analysis.
+ This could either be due to errors in the algorithm, or faults in the understan
+ding of hippocampal encoding.
 \end_layout
 
 \begin_layout Subsection
@@ -1177,8 +1260,8 @@ In any choice trial, the rat begins from the left side of the maze, and
 \begin_layout Standard
 During the guided trial, the animal doesn't have to make a decision, and
  is guided to one of the sites on the left.
- If the animal begins the guided trial from R3, it is led to R1 using the
- movable barriers, and if it begins the trial at R4, it is led to R2.
+ The animal is led to either R1 or R2 at random, by means of the movable
+ barrier at the guided turn.
  This trial served the purpose of recording data to compare neural data
  from the choice trials with, and also to prepare for the next choice trial.
 \end_layout
@@ -1709,9 +1792,9 @@ Firing rate modulation using velocity
 
 \begin_layout Standard
 While the firing rate and the spatial occupancy vectors alone are enough
- for reconstruction purposes, the firing rate can be further be modulated
- with other parameters beyond just position, such as the velocity of the
- animal and the direction of motion.
+ for reconstruction purposes, the firing rate can be further modulated with
+ other parameters beyond just position, such as the velocity of the animal
+ and the direction of motion.
  In a freely moving rat, the velocity of direction of the animal moving
  does not have any effect on the firing rate of place cells in the hippocampus,
  but when the rat is placed in an environment with physical constraints
@@ -3812,6 +3895,13 @@ where
 
 \begin_layout Subsection
 Adding continuity constraints
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Adding-continuity-constraints"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4836,14 +4926,14 @@ To evaluate the performance of the toolbox, a model was initially trained
 
  value was noted.
  In order to analyse the model on a novel testing set, a cross validation
- test was carried out.
+ test was carried out as well.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -5211,8 +5301,8 @@ Results and inference
 
 \begin_layout Standard
 The performance of the model during cross validation is slightly poorer
- than testing on the entire training set, but this is due to the effects
- of over fitting while training.
+ than testing on the entire training set, but this can be explained as arising
+ due to the effects of over fitting on the full test.
  The more interesting result is the variance of accuracy across the different
  folds of the cross validation test.
  The two folds that had the worst reconstruction accuracy, as compared to
@@ -5225,18 +5315,17 @@ The performance of the model during cross validation is slightly poorer
  beginning and the end of the recording.
  As the results of the cross validation test indicate, the performance of
  reconstruction is poorest at these intervals.
- 
+ The main results that can be inferred here are
 \end_layout
 
-\begin_layout Standard
-This indicates that the majority of deviations in reconstructed position
- and actual position, or non-local representations of the position of the
- animal, tend to occur when the animal is 
-\emph on
-stationary
-\emph default
-, rather than when the animal is moving across the maze.
- 
+\begin_layout Itemize
+The reconstruction algorithm was found to have a high level of accuracy
+ in predicting positions on novel spike trains.
+\end_layout
+
+\begin_layout Itemize
+A majority of the errors in reconstruction occur when the animal is stationary
+ at the reward sites, and not while navigating the maze.
 \end_layout
 
 \begin_layout Section
@@ -5274,7 +5363,15 @@ To study the effect of continuity constraints on accuracy, reconstruction
  The continuity constraint is dynamic; depending on the maximum recorded
  velocity of the animal at that location, larger deviations are either increase
  the likelihood of the current estimate or dampen it.
- The exact implementation of the 2-step constraint can be found in section.
+ The exact implementation of the 2-step constraint can be found in section
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Adding-continuity-constraints"
+
+\end_inset
+
+.
  The single step reconstruction is carried out solely on information gained
  from the neural spikes, whereas the second step uses the distance to the
  previous location estimate to alter the current estimate.
@@ -5529,8 +5626,13 @@ reference "fig:Improving-prediction"
  These deviations are a result of the implemented constraint filtering accurate
  estimates of the position.
  However, these anomalies are very few in comparison with the number of
- eliminated deviations, and as the above table shows, the reconstruction
- accuracy improves considerably by implementing continuity constraints.
+ eliminated deviations.
+\end_layout
+
+\begin_layout Itemize
+The reconstruction accuracy can be improved considerably by implementing
+ continuity constraints on the distance between the current and previous
+ estimates.
  
 \end_layout
 
@@ -5707,19 +5809,7 @@ As can be seen in the graph, having extremely low grid sizes negatively
 \begin_layout Itemize
 Increasing the grid size does not improve accuracy beyond a certain point.
  Thus, it is favorable to reconstruct on smaller grid sizes, as there is
- no loss in accuracy, but much faster computation times.
-\end_layout
-
-\begin_layout Itemize
-On the data used for testing, the most accurate model is the one that is
- trained on a grid size of 
-\begin_inset Formula $9\times9$
-\end_inset
-
- figure.
- This size is ideal for reconstruction as it corresponds to that size where
- the pathways of the maze can be represented by the width of one grid square
- (figure).
+ no loss in accuracy, but result in much faster computation times.
 \end_layout
 
 \begin_layout Section
@@ -5989,7 +6079,7 @@ reference "sec:Effect-of-grid"
 
 , there is no improvement in either animal's model accuracy after a certain
  grid size.
- The main result gathered here is that
+ The main result here is
 \end_layout
 
 \begin_layout Itemize
@@ -6078,7 +6168,15 @@ The map of deviation occurrences contains the number of times significant
 
 \begin_layout Standard
 By varying the threshold for classifying a significant deviation, different
- normalized maps of occurrences of deviations was obtained, shown in (Figure).
+ normalized maps of occurrences of deviations was obtained, shown in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Deviation-count-normalization"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -6160,6 +6258,13 @@ After normalization
 
 \begin_layout Plain Layout
 Deviation count normalization with spatial occupancy
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Deviation-count-normalization"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -6391,6 +6496,18 @@ Deviation occurrences at different thresholds
 
 \end_layout
 
+\begin_layout Plain Layout
+\align center
+
+\size small
+The threshold for measuring deviations was varied, to find the locations
+ of significant deviations.
+ As the threshold distance increases, the observed deviations reduces as
+ expected, but it can be clearly seen that most of these significant deviations
+ occur at the reward sites, or the choice point.
+ 
+\end_layout
+
 \end_inset
 
 
@@ -6504,7 +6621,7 @@ Choice
 \begin_inset Text
 
 \begin_layout Plain Layout
-Reward
+Guided
 \end_layout
 
 \end_inset
@@ -6548,6 +6665,14 @@ Deviation errors at choice point
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\size small
+Deviations occuring at the choice point were observed when the animal navigates
+ towards the choice turn, and as it returns from it.
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -6567,7 +6692,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -6607,7 +6732,7 @@ Choice trial - towards the choice point
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -6633,10 +6758,6 @@ Guided trial - away from the choice point
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -6652,6 +6773,14 @@ Direction-specific deviations
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\size small
+This figure counts the locations where deviations of more than 25cm were
+ observed, individually on the choice and guided trials.
 \end_layout
 
 \begin_layout Plain Layout
@@ -6793,7 +6922,14 @@ Initially, a graphical user interface was planned, but was discarded due
 \noun on
 help
 \noun default
- command, or in the software documentation (see Appendix).
+ command, or in the software documentation (see Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Appendix-B:-ReconTool"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsection
@@ -6888,12 +7024,12 @@ Despite the obvious advantage of a much higher accuracy in estimating positions
  Counting the number of spikes within a certain interval, requires finding
  the indices of spikes within a vector.
  While this on its own is not an expensive task, it is repeated for every
- neuron, for each location in the map, and for every timestep.
+ neuron, for each location in the map, and for every time step.
  This results in large computation times for even moderately long trajectories.
 \end_layout
 
 \begin_layout Standard
-In the very first unoptimized implementation of the algorithm, reconsruction
+In the very first unoptimized implementation of the algorithm, reconstruction
  over a 5 minute interval (~ 9000 time steps) took approximately 8 hours.
  In the current state of the implementation, the algorithm can decode the
  same 5-minute interval, reproducing the exact same results, in less than
@@ -6914,7 +7050,7 @@ Finding the number of spikes falling within the time window involved a lot
  of calls to the vector search function.
  This method of searching did not take into account the fact that the provided
  spike trains are already sorted.
- The method of dynamic indices, descriped in detail in the implementation
+ The method of dynamic indices, described in detail in the implementation
  chapter, exploits the fact that the vectors are sorted before hand, and
  counts the number of spikes by calculating the difference between the indices
  of the first and last spike of the time window.
@@ -6943,12 +7079,12 @@ Flexibility
 \end_layout
 
 \begin_layout Standard
-The core algorithm itself is implemented as a seperate module, and is less
+The core algorithm itself is implemented as a separate module, and is less
  than 50 lines of code.
  All core objects such as the trained model and spike trains are passed
  to the algorithm when it is called.
  It is called once per point, and returns the estimated location of the
- animal, along with a probablity distribution across the map.
+ animal, along with a probability distribution across the map.
  Changes can be made to the algorithm here, or an entirely new algorithm
  can be devised, and plugged into the toolbox.
  
@@ -6976,7 +7112,7 @@ key "Jones2005"
  The null model uses minimal processing and serves as a benchmark to evaluate
  other models.
  Cross validation tests were also carried out to observe the accuracy on
- new spike trains, and to eliminate the effect of overfitting.
+ new spike trains, and to eliminate the effect of over fitting.
  
 \end_layout
 
@@ -6992,7 +7128,7 @@ not
  itself, deviations in reconstruction and actual trajectory are expected,
  as they potentially represent sequential activity corresponding to places
  the animal has previous visited or yet to visit.
- As shown by these results, the reconstruction algorithm was succesfully
+ As shown by these results, the reconstruction algorithm was successfully
  implemented with a high level of accuracy.
 \end_layout
 
@@ -7041,7 +7177,7 @@ Non-local representations
 
 \begin_layout Standard
 Errors in reconstruction of the position may arise either due to the algorithm
- and insufficient information contained within the spikes, or due to occurences
+ and insufficient information contained within the spikes, or due to occurrences
  non-local representations of position of the animal.
  The two specific types of OSA that are of interest are representations
  of past locations (replay), and representations of future locations (preplay).
@@ -7051,11 +7187,18 @@ Errors in reconstruction of the position may arise either due to the algorithm
 Mapping out locations of the animal where non-local sequences were observed
  reveals that significant deviations occur at the choice point, and at the
  reward sites.
- Further analysing the occurences of deviations, it was found that mostly
- all deviations occuring near the decision point occur during the choice
+ Further analysing the occurrences of deviations, it was found that mostly
+ all deviations occurring near the decision point occur during the choice
  trial, and this strongly indicates preplay of future locations to aid the
  animal in decision making.
- 
+ While the exact natute of these non-local representations were not explored,
+ the occurrences were identified in this project.
+ The clear difference between deviations occuring on the choice trail vs
+ the guided trial seems indicative of non-local representations as a method
+ of planning, and evaluating consequences of the decision.
+ For these reasons, this result of the project, though it achieved its aim
+ of finding such representations, leaves room for more exciting future work
+ and anlayses.
 \end_layout
 
 \begin_layout Section
@@ -7091,11 +7234,11 @@ In this project,
 \noun on
 ReconTool
 \noun default
- has been used succesfully to identify high amounts of non-local place cell
- activation at reward sites, suggesting replay of recently experienced memories,
- and at the junction points as the animal approaches it, suggesting preplay
- of place cells representing future locations ahead of the animal.
- While the occurences of deviations have been identified, future analysis
+ has been used successfully to identify high amounts of non-local place
+ cell activation at reward sites, suggesting replay of recently experienced
+ memories, and at the junction points as the animal approaches it, suggesting
+ preplay of place cells representing future locations ahead of the animal.
+ While the occurrences of deviations have been identified, future analysis
  can be carried out to investigate the actual locations represented by these
  deviations, as this would provide further insight into the role of the
  hippocampus in memory consolidation and mental exploration of novel spaces.
@@ -7162,7 +7305,7 @@ Significant deviations between actual and reconstructed position occur at
 \begin_layout Itemize
 Almost all of the significant deviations at the choice point were found
  to occur as the animal approached it to make a choice turn, and not when
- moving away from it, indicating that these non-local sequential activity
+ moving away from it, indicating that these non-local sequential activities
  represent future locations ahead of the choice point (preplay) to evaluate
  consequences of the choice before making a turn.
 \end_layout
